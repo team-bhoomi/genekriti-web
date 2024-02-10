@@ -3,4 +3,5 @@ export const serviceMessages = {
   EVENT_NOT_FOUND: "Event not found",
   EVENT_UPDATE_SUCCESS: "Event updated successfully",
   EVENT_UPDATE_FAILURE: "Event not updated",
+  EVENT_FOUND_ALL: "All events found successfully",
 };
