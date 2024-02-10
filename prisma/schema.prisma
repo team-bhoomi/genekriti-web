@@ -49,7 +49,7 @@ model Event{
   organizer_id String 
   event_name String
   event_description String
-  event_banner_url String
+  event_banner_url String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   start_date DateTime? @db.Timestamp()
