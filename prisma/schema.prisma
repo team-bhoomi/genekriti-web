@@ -98,12 +98,26 @@ model Transactions{
 
 
 // TODO : Define an enum of category
+enum videoCategory{
+  RENEWABLE_ENERGY
+  ENERGY_EFFICIENCY
+  WASTE_REDUCTION_AND_RECYCLING
+  SUSTAINABLE_TRANSPORTATION
+  SUSTAINABLE_AGRICULTURE_AND_FOOD
+  WATER_CONSERVATION
+  GREEN_BUILDING_AND_CONSTRUCTION
+  SUSTAINABLE_FASHION
+  SUSTAINABLE_LIVING
+  EDUCATION
+  COMMUNITY_INITIATIVES
+}
+
 model Videos{
   video_id String @id @unique @default(cuid())
   creator_id String 
   title String
   description String?
-  category String
+  category videoCategory
   thumbnail_img_url String
   video_url String
   created_at DateTime @default(now())
@@ -142,4 +156,17 @@ model Video_views{
   video Videos @relation(fields: [video_id],references: [video_id],onDelete: Cascade)
 }
 
-// TODO : Define a enum for quiz categories
+// TODO : Define a enum for PRODUCT categories
+enum productCategory{
+  RECYCLING_BOTTLES
+  BAGS
+  PLASTICS
+  CARDBOARDS
+  DIY
+  CLOTHES
+  PAPER
+  GLASS
+  ACCESSORIES
+  HOME_DECOR
+  ART_CRAFT
+}
