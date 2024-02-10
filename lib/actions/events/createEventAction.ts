@@ -43,15 +43,14 @@ export const createEventAction = async (
       event_banner_url: (formData.get("event_banner_url") as string) || null,
     });
 
+    //TODO : Revalidate events path to make it dynamic
+    revalidatePath("/events");
     return {
       success: true,
       data: response,
       error: null,
       message: actionMessages.EVENT_CREATED,
     };
-
-    //TODO : Revalidate events path to make it dynamic
-    // revalidatePath("/events");
   } catch (error) {
     console.log("Some error in create event action", error);
     return {
