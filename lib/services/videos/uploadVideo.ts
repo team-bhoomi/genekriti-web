@@ -2,7 +2,8 @@ import { serviceMessages } from "@/lib/constants/serviceMessage";
 import { prisma } from "@/lib/prisma";
 import { Videos } from "@prisma/client";
 
-export const createVideo = async ({
+export const updateVideoById = async ({
+  video_id,
   creator_id,
   title,
   description,
@@ -11,6 +12,7 @@ export const createVideo = async ({
   category,
 }: Pick<
   Videos,
+  | "video_id"
   | "creator_id"
   | "title"
   | "description"
@@ -24,21 +26,24 @@ export const createVideo = async ({
   message: string;
 }> => {
   try {
-    const response = await prisma.videos.create({
+    const response = await prisma.videos.update({
       data: {
-        creator_id,
         title,
         description,
         thumbnail_img_url,
         video_url,
         category,
       },
+      where: {
+        video_id,
+        creator_id,
+      },
     });
     return {
       data: response,
       success: true,
       error: null,
-      message: serviceMessages.VIDEO_CREATE_SUCCESS,
+      message: serviceMessages.VIDEO_UPDATE_SUCCESS,
     };
   } catch (error) {
     console.log(error);
@@ -46,7 +51,7 @@ export const createVideo = async ({
       data: null,
       success: false,
       error,
-      message: serviceMessages.VIDEO_UPLOAD_FAILURE,
+      message: serviceMessages.VIDEO_UPDATE_FAILURE,
     };
   }
 };

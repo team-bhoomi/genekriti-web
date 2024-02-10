@@ -118,7 +118,7 @@ model Videos{
   title String
   description String?
   category videoCategory
-  thumbnail_img_url String
+  thumbnail_img_url String?
   video_url String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

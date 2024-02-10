@@ -20,4 +20,12 @@ export const serviceMessages = {
   EVENT_ATTENDEE_MARKED_FAILURE: "Oops, some error marking your attendance",
   EVENT_ORGANIZTION_FOUND: "Event organizer found successfully",
   EVENT_ORGANIZTION_NOT_FOUND: "Oops, event organizer not found",
+  VIDEO_CREATE_SUCCESS: "Video uploaded successfully",
+  VIDEO_UPLOAD_FAILURE: "Oops, some error while uploading the video",
+  VIDEO_FOUND: "Video fetched successfully",
+  VIDEO_NOT_FOUND: "Video found successfully",
+  VIDEO_UPDATE_SUCCESS: "Video updated successfully",
+  VIDEO_UPDATE_FAILURE: "Oops, Video could not be uploaded",
+  VIDEO_DELETE_SUCCESS: "Video deleted successfully",
+  VIDEO_DELETE_FAILURE: "Oops, Vidoe could not be deleted",
 };
