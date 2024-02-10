@@ -108,9 +108,9 @@ model Videos{
   video_url String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  like_count Int 
-  view_count Int
-  comment_count Int
+  like_count Int @default(0)
+  view_count Int @default(0)
+  comment_count Int @default(0)
   user User @relation(fields: [creator_id],references: [id])
   likes Video_likes[] 
   comments Video_comments[]
