@@ -16,4 +16,6 @@ export const serviceMessages = {
     "Oops, Error fetching registrants of the event",
   EVENT_REGISTRANT_FOUND: "Registrant found successfully",
   EVENT_REGISTRANT_NOT_FOUND: "Oops, registrant not found",
+  EVENT_ATTENDEE_MARKED_SUCCESS: "Marked as attendee successfully",
+  EVENT_ATTENDEE_MARKED_FAILURE: "Oops, some error marking your attendance",
 };
