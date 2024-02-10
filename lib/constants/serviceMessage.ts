@@ -6,4 +6,5 @@ export const serviceMessages = {
   EVENT_FOUND_ALL: "All events found successfully",
   EVENT_DELETE_SUCCESS: "Event delete successfully",
   EVENT_DELETE_FAILURE: "Event not deleted",
+  EVENTS_FOUND_SUCCESS: "Events found successfully",
 };
