@@ -10,5 +10,8 @@ export const serviceMessages = {
   EVENT_COMPLETE_SUCCESS: "Event marked as completed successfully",
   EVENT_COMPLETE_FAILURE: "Event could not be marked as completed",
   EVENT_REGISTRATION_SUCCESS: "Registered to event successfully",
-  EVENT_REGISTRATION_FAILURE: "Opps, Error registering to the event",
+  EVENT_REGISTRATION_FAILURE: "Oops, Error registering to the event",
+  EVENT_REGISTRANTS_FETCH_SUCCESS: "Registrants fetched successfully",
+  EVENT_REGISTRANTS_FETCH_FAILURE:
+    "Oops, Error fetching registrants of the event",
 };
