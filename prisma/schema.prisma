@@ -29,6 +29,8 @@ model User{
   recipent_transactions Transactions[] @relation(name: "recipent")
   payer_transactions Transactions[] @relation(name: "payer")
   videos Videos[]
+  video_likes Video_likes[]
+  video_views Video_views[]
 }
 model Organization{
   org_id String @id @unique
@@ -134,9 +136,10 @@ model Videos{
 model Video_likes{
   like_id String @id @unique @default(cuid())
   video_id String
-  user_id String
+  user_id String 
   liked_at DateTime @default(now())
   video Videos @relation(fields: [video_id],references: [video_id],onDelete: Cascade)
+  user User @relation(fields : [user_id], references: [id], onDelete: Cascade)
 }
 
 model Video_comments{
@@ -154,6 +157,7 @@ model Video_views{
   user_id String
   viewed_at DateTime @default(now())
   video Videos @relation(fields: [video_id],references: [video_id],onDelete: Cascade)
+  user User @relation(fields: [user_id] ,references: [id], onDelete: Cascade)
 }
 
 // TODO : Define a enum for PRODUCT categories
