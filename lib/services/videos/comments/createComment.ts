@@ -23,6 +23,20 @@ export const createComment = async ({
         video_id,
       },
     });
+    const commentCountAfterComment = await prisma.video_comments.count({
+      where: {
+        video_id,
+      },
+    });
+
+    const incrementCommentCount = await prisma.videos.update({
+      where: {
+        video_id,
+      },
+      data: {
+        comment_count: commentCountAfterComment,
+      },
+    });
     return {
       data: response,
       success: true,

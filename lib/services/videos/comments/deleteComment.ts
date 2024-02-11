@@ -22,6 +22,21 @@ export const deleteComment = async ({
         video_id,
       },
     });
+
+    const commentCountAfterDeletion = await prisma.video_comments.count({
+      where: {
+        video_id,
+      },
+    });
+
+    const decrementCommentCount = await prisma.videos.update({
+      where: {
+        video_id,
+      },
+      data: {
+        comment_count: commentCountAfterDeletion,
+      },
+    });
     return {
       error: null,
       success: true,
