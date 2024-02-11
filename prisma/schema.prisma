@@ -31,6 +31,7 @@ model User{
   videos Videos[]
   video_likes Video_likes[]
   video_views Video_views[]
+  questions_attempted Question_responses[]
 }
 model Organization{
   org_id String @id @unique
@@ -179,4 +180,47 @@ enum productCategory {
   ACCESSORIES
   HOME_DECOR
   ART_CRAFT
+}
+
+enum questionCategory {
+  WASTE_MANAGEMENT
+  SUSTAINABLE_SOLUTIONS
+  SUSTAINABLE_LIVING
+  CLIMATE_CHANGE
+  ENVIRONMENTAL_ACTIVISIM
+  BIODIVERSITY
+  CIRCULAR_ECONOMY
+  POLLUTION
+  SUSTAINABLE_PRODUCTS
+  RENEWABLE_ENERGY
+}
+
+enum questionDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Questions {
+  question_id String @id @unique @default(cuid())
+  opt_1 String
+  opt_2 String
+  opt_3 String
+  opt_4 String
+  answer String
+  level questionDifficulty
+  points Int
+  category questionCategory
+  group Int
+}
+
+model Question_responses {
+  response_id String @id @unique @default(cuid())
+  question_id String
+  user_id String
+  user_answer String
+  is_correct Boolean
+  group Int
+  attempted_at DateTime @default(now())
+  user User @relation(fields: [user_id], references: [id],onDelete: Cascade)
 }
