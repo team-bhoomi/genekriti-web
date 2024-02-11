@@ -140,7 +140,7 @@ model Video_likes{
 }
 
 model Video_comments{
-  coment_id String @id @unique @default(cuid())
+  comment_id String @id @unique @default(cuid())
   video_id String
   user_id String
   comment String
@@ -149,7 +149,7 @@ model Video_comments{
 }
 
 model Video_views{
-  coment_id String @id @unique @default(cuid())
+  view_id String @id @unique @default(cuid())
   video_id String
   user_id String
   viewed_at DateTime @default(now())

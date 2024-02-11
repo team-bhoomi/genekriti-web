@@ -28,4 +28,12 @@ export const serviceMessages = {
   VIDEO_UPDATE_FAILURE: "Oops, Video could not be uploaded",
   VIDEO_DELETE_SUCCESS: "Video deleted successfully",
   VIDEO_DELETE_FAILURE: "Oops, Vidoe could not be deleted",
+  COMMENT_CREATED_SUCCESS: "Comment created successfully",
+  COMMENT_CREATED_FAILURE: "Oops, comment could not be created",
+  COMMENT_UPDATE_SUCCESS: "Comment updated successfully",
+  COMMENT_UPDATE_FAILURE: "Oops, comment could not be updated",
+  COMMENT_DELETE_SUCCESS: "Comment deleted successfully",
+  COMMENT_DELETE_FAILURE: "Oops, comment could not be deleted",
+  COMMENTOR_FOUND_SUCCESS: "Commentor found successfully",
+  COMMENTOR_NOT_FOUND: "Oops, commentor not found",
 };
