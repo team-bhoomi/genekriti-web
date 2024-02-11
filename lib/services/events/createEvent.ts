@@ -20,9 +20,9 @@ export type EventProps = Pick<
   | "pincode"
   | "start_date"
   | "end_date"
+  | "mode"
 >;
 
-const ServiceErrorType = {};
 export const createEvent = async (
   props: EventProps
 ): Promise<{ data: Event | null; success: boolean }> => {
@@ -40,6 +40,7 @@ export const createEvent = async (
         pincode: props.pincode,
         start_date: props.start_date,
         end_date: props.end_date,
+        mode: props.mode,
       },
     });
     // TODO : Write the path of events page below:

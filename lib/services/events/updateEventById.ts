@@ -20,6 +20,7 @@ export const updateEventById = async (
     | "event_name"
     | "event_description"
     | "event_banner_url"
+    | "mode"
   >
 ): Promise<{
   data: Event | null;
@@ -40,6 +41,7 @@ export const updateEventById = async (
         start_date: props.start_date,
         end_date: props.end_date,
         event_banner_url: props.event_banner_url,
+        mode: props.mode,
       },
       where: {
         event_id: props.event_id,

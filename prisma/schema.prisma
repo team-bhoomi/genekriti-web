@@ -46,6 +46,11 @@ model Organization{
   events Event[]
 }
 
+enum eventMode {
+  OFFLINE
+  ONLINE
+}
+
 model Event{
   event_id String @id @unique @default(cuid())
   organizer_id String 
@@ -61,6 +66,7 @@ model Event{
   state String
   country String
   pincode Int
+  mode eventMode
   is_completed Boolean @default(false)
   registrants_count Int @default(0)
   attendees_count Int @default(0)
@@ -100,7 +106,7 @@ model Transactions{
 
 
 // TODO : Define an enum of category
-enum videoCategory{
+enum videoCategory {
   RENEWABLE_ENERGY
   ENERGY_EFFICIENCY
   WASTE_REDUCTION_AND_RECYCLING
@@ -161,7 +167,7 @@ model Video_views{
 }
 
 // TODO : Define a enum for PRODUCT categories
-enum productCategory{
+enum productCategory {
   RECYCLING_BOTTLES
   BAGS
   PLASTICS

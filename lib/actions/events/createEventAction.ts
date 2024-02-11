@@ -8,6 +8,7 @@ import { createEvent } from "@/lib/services/events/createEvent";
 import { revalidatePath } from "next/cache";
 import dayjs from "dayjs";
 import { actionMessages } from "@/lib/constants/actionMessage";
+import { eventMode } from "@prisma/client";
 export const createEventAction = async (
   formData: FormData
 ): Promise<{
@@ -41,6 +42,7 @@ export const createEventAction = async (
       country: formData.get("country") as string,
       pincode: parseInt(formData.get("pincode") as string),
       event_banner_url: (formData.get("event_banner_url") as string) || null,
+      mode: formData.get("mode") as eventMode,
     });
 
     //TODO : Revalidate events path to make it dynamic
