@@ -1,6 +1,7 @@
 "use server";
 
 import { updateEventById } from "@/lib/services/events/updateEventById";
+import { eventMode } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -17,6 +18,7 @@ export const updateEventAction = async (formData: FormData) => {
     start_date: new Date(formData.get("start_date") as string),
     end_date: new Date(formData.get("end_date") as string),
     event_banner_url: (formData.get("event_banner_url") as string) || null,
+    mode: formData.get("mode") as eventMode,
   });
 
   // TODO : revalidate path /event/:id
