@@ -32,6 +32,8 @@ model User{
   video_likes Video_likes[]
   video_views Video_views[]
   questions_attempted Question_responses[]
+  seller Products[]
+  buyer Purchases[]
 }
 model Organization{
   org_id String @id @unique
@@ -94,12 +96,18 @@ model Attendees{
   user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
 }
 
+enum transaction_source {
+  EVENT_ATTENDED
+  PRODUCT_EXCHANGE
+  QUIZ_COMPLETED
+  VIDEO_UPLOADED
+}
 model Transactions{
   transaction_id String @id @unique @default(cuid())
   payer_id String
   recipent_id String
   date DateTime @default(now())
-  source String
+  source transaction_source
   amount Int
   recipent User @relation(name: "recipent",fields: [recipent_id],references: [id],onDelete: Cascade)
   payer User @relation(name : "payer", fields: [payer_id], references: [id],onDelete: Cascade)
@@ -223,4 +231,36 @@ model Question_responses {
   group Int
   attempted_at DateTime @default(now())
   user User @relation(fields: [user_id], references: [id],onDelete: Cascade)
+}
+
+model Products {
+  product_id String @id @unique @default(cuid())
+  seller_id String
+  name String
+  description String
+  price Int
+  is_sold Boolean @default(false)
+  categories productCategory[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  images Products_Images[]
+  seller User @relation(fields: [seller_id],references: [id],onDelete: Cascade)
+  purchases Purchases[]
+}
+
+model Products_Images {
+  product_img_id String @id @unique @default(cuid())
+  product_id String
+  product_image_url String
+  image_name String
+  product Products @relation(fields: [product_id],references: [product_id],onDelete: Cascade)
+}
+
+model Purchases {
+  id String @id @unique @default(cuid())
+  buyer_id String
+  product_id String
+  purchased_at DateTime @default(now())
+  buyer User @relation(fields: [buyer_id],references: [id],onDelete: Cascade)
+  products Products @relation(fields: [product_id],references: [product_id],onDelete: Cascade)
 }
