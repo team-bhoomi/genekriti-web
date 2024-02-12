@@ -36,4 +36,6 @@ export const serviceMessages = {
   COMMENT_DELETE_FAILURE: "Oops, comment could not be deleted",
   COMMENTOR_FOUND_SUCCESS: "Commentor found successfully",
   COMMENTOR_NOT_FOUND: "Oops, commentor not found",
+  PRODUCT_PUBLISH_SUCCESS: "Product published successfully",
+  PRODUCT_PUBLISH_FAILURE: "Oops, product could not be published",
 };
