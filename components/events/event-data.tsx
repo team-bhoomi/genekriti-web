@@ -7,10 +7,12 @@ import { Attendees } from "./attendees";
 import { OrgAttendees } from "./org-attendees";
 import { Event, Organization } from "@prisma/client"
 import dayjs from "dayjs";
+import { getEventOrganizer } from "@/lib/services/events/getEventOrganizer";
 
 type EventDataType = Event & { organizer: { name: string } }
-export const EventData = ({ event }: { event: EventDataType }) => {
-    var isOrg = false;
+export const EventData = async ({ event }: { event: EventDataType }) => {
+    // var isOrganizing = await getEventOrganizer({ event_id: event.event_id, org_id: event.organizer_id });
+    var isOrganizingOrg = false;
     var eventOver = false;
     var isUserRegistered = false;
     return (
@@ -23,7 +25,7 @@ export const EventData = ({ event }: { event: EventDataType }) => {
                     <ArrowLeftCircle width={18} height={18} />
                     Back
                 </Link>
-                {isOrg && (
+                {isOrganizingOrg && (
                     <Button
                         size={"sm"}
                         variant={"outline"}
@@ -94,7 +96,7 @@ export const EventData = ({ event }: { event: EventDataType }) => {
                         </div>
                     </div>
 
-                    {!isUserRegistered ? (
+                    {!isUserRegistered && !isOrganizingOrg ? (
                         <Button className="w-fit">Register Now</Button>
                     ) : (
                         <div className="flex gap-4 items-center">
@@ -111,7 +113,7 @@ export const EventData = ({ event }: { event: EventDataType }) => {
                     )}
                 </div>
             </div>
-            {isOrg && <OrgAttendees />}
+            {isOrganizingOrg && <OrgAttendees />}
             {eventOver && <Attendees />}
         </div>
     );
