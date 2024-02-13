@@ -20,7 +20,5 @@ export const updateEventAction = async (formData: FormData) => {
     event_banner_url: (formData.get("event_banner_url") as string) || null,
     mode: formData.get("mode") as eventMode,
   });
-
-  // TODO : revalidate path /event/:id
-  // revalidatePath(`/events/${formData.get("event_id") as string}`)
+  redirect(`/events/${resposne.data?.event_id}`);
 };

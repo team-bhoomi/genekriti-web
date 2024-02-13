@@ -11,6 +11,7 @@ import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
 import { getCurrentUserId } from "@/lib/constants/getCurrentUserId";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { deleteEventAction } from "@/lib/actions/events/deleteEventAction";
+import { EditEventButton } from "./edit-event-button";
 
 type EventDataType = Event & { organizer: { name: string } }
 export const EventData = async ({ event }: { event: EventDataType }) => {
@@ -48,14 +49,8 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                 </Link>
                 {isOrganizingOrg && (
                     <div className="flex justify-start items-center gap-3">
-                        <Button
-                            size={"sm"}
-                            variant={"outline"}
-                            className="text-base text-black flex items-center gap-1"
-                        >
-                            <Pencil width={18} height={18} />
-                            Edit Event
-                        </Button>
+                        <EditEventButton event_id={event.event_id} />
+
                         <DeleteEventButton event_id={event.event_id} />
                     </div>
                 )}
@@ -76,6 +71,11 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                             Organisers:{""}
                             {/* //@ts-ignore */}
                             <span className="font-normal">{event.organizer.name}</span>
+                        </div>
+                        <div>
+                            Mode:{""}
+                            {/* //@ts-ignore */}
+                            <span className="font-normal">{event.mode}</span>
                         </div>
                         <div>
                             Venue:{" "}
