@@ -38,4 +38,8 @@ export const serviceMessages = {
   COMMENTOR_NOT_FOUND: "Oops, commentor not found",
   PRODUCT_PUBLISH_SUCCESS: "Product published successfully",
   PRODUCT_PUBLISH_FAILURE: "Oops, product could not be published",
+  CONVERSATION_ADD_SUCCESS: "Conversation added succesfully",
+  CONVERSATOIN_ADD_FAILURE: "Oops, conversation could not be added",
+  CONVERSATION_FETCH_SUCCESS: "Converstation fetched successfully",
+  CONVERSATION_FETCH_FAILURE: "Oops, converstation could not be fetched",
 };
