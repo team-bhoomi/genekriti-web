@@ -83,12 +83,12 @@ export const featureMenu = [
         ),
         menulink: "/r3",
     },
-    // {
-    //     id: 8,
-    //     name: "Log Out",
-    //     Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
-    //         <Power width={20} height={20} />
-    //     ),
-    //     menulink: "/logout",
-    // },
+    {
+        id: 8,
+        name: "Log Out",
+        Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
+            <Power width={20} height={20} />
+        ),
+        menulink: "",
+    },
 ];
