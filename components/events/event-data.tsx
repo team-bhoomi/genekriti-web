@@ -10,6 +10,7 @@ import { getEventOrganizer } from "@/lib/services/events/getEventOrganizer";
 import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
 import { getCurrentUserId } from "@/lib/constants/getCurrentUserId";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { deleteEventAction } from "@/lib/actions/events/deleteEventAction";
 
 type EventDataType = Event & { organizer: { name: string } }
 export const EventData = async ({ event }: { event: EventDataType }) => {
@@ -19,11 +20,11 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
 
     const { success, data: orgData } = await getEventOrganizer({ org_id: event.organizer_id, event_id: event.event_id })
 
-    console.log(orgData);
+    // console.log(orgData);
     const { getUser } = getKindeServerSession()
     const user = await getUser();
-    console.log("ORGANIZER:", event.organizer_id);
-    console.log("LOGGED IN:", user?.id)
+    // console.log("ORGANIZER:", event.organizer_id);
+    // console.log("LOGGED IN:", user?.id)
 
     orgData.organizer.org_id === user?.id ? isOrganizingOrg = true : isOrganizingOrg = false;
     console.log(isOrganizingOrg);
@@ -55,14 +56,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                             <Pencil width={18} height={18} />
                             Edit Event
                         </Button>
-                        <Button
-                            size={"sm"}
-                            variant={"outline"}
-                            className="text-base text-black flex items-center gap-1"
-                        >
-                            <Trash2Icon width={18} height={18} />
-                            Delete Event
-                        </Button>
+                        <DeleteEventButton event_id={event.event_id} />
                     </div>
                 )}
             </div>
@@ -126,24 +120,6 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         </div>
                     </div>
 
-                    {/* {!isOrganizingOrg ? !isUserRegistered ? (
-                        <Button className="w-fit">Register Now</Button>
-                    ) : (
-                        <div className="flex gap-4 items-center">
-                            <ScanQR />
-                            <div className="text-xl text-primary font-semibold">
-                                Registered
-                            </div>
-                        </div>
-
-                    ) :
-                        <p className="text-green-500 text-4xl">{"You are hosting this event"}</p>
-                    }
-                    {eventOver && (
-                        <div className="text-xl text-primary font-semibold">
-                            Event Completed
-                        </div>
-                    )} */}
                     {!isOrganizingOrg ? (isPresentDateAfterEventEndDate ? <div>{"The event is completed"}</div> : <Button className="w-fit">Register Now</Button>) : null}
                     {isOrganizingOrg ? (isPresentDateAfterEventEndDate ? "Event completed successfully" : "You are hosting this event") : "register"}
                 </div>
@@ -153,3 +129,20 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
         </div>
     );
 };
+
+
+const DeleteEventButton = async ({ event_id }: { event_id: string }) => {
+    return (
+        <form action={deleteEventAction}>
+            <input name="event_id" defaultValue={event_id} className="hidden" />
+            <Button
+                size={"sm"}
+                variant={"outline"}
+                className="text-base text-black flex items-center gap-1"
+            >
+                <Trash2Icon width={18} height={18} />
+                Delete Event
+            </Button>
+        </form>
+    )
+}
