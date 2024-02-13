@@ -5,9 +5,11 @@ import { Button } from "../ui/button";
 import { ScanQR } from "./scan-qr";
 import { Attendees } from "./attendees";
 import { OrgAttendees } from "./org-attendees";
-import { Event } from "@prisma/client"
+import { Event, Organization } from "@prisma/client"
 import dayjs from "dayjs";
-export const EventData = ({ event }: { event: Event }) => {
+
+type EventDataType = Event & { organizer: { name: string } }
+export const EventData = ({ event }: { event: EventDataType }) => {
     var isOrg = false;
     var eventOver = false;
     var isUserRegistered = false;
@@ -46,7 +48,8 @@ export const EventData = ({ event }: { event: Event }) => {
                     <div className="flex flex-col gap-2 *:text-lg *:flex *:flex-wrap *:items-center *:gap-2 *:font-semibold">
                         <div>
                             Organisers:{""}
-                            <span className="font-normal">{"XYZ Company"}</span>
+                            {/* //@ts-ignore */}
+                            <span className="font-normal">{event.organizer.name}</span>
                         </div>
                         <div>
                             Venue:{" "}
