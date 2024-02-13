@@ -5,6 +5,9 @@ import dayjs from "dayjs";
 
 export const Attendees = async ({ event_id }: { event_id: string }) => {
     const { data } = await getAllAttendees({ event_id });
+    if (data?.length == 0) {
+        return null
+    }
     return (
         <div className="flex flex-col gap-5 p-4 w-full">
             <div className="text-2xl font-semibold">Event Attendees</div>

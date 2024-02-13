@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import { getEventOrganizer } from "@/lib/services/events/getEventOrganizer";
 import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
 import { getCurrentUserId } from "@/lib/constants/getCurrentUserId";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 type EventDataType = Event & { organizer: { name: string } }
 export const EventData = async ({ event }: { event: EventDataType }) => {
@@ -18,9 +19,17 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
 
     const { success, data: orgData } = await getEventOrganizer({ org_id: event.organizer_id, event_id: event.event_id })
 
-    if (orgData) isOrganizingOrg = true;
+    console.log(orgData);
+    const { getUser } = getKindeServerSession()
+    const user = await getUser();
+    console.log("ORGANIZER:", event.organizer_id);
+    console.log("LOGGED IN:", user?.id)
+
+    orgData.organizer.org_id === user?.id ? isOrganizingOrg = true : isOrganizingOrg = false;
+    console.log(isOrganizingOrg);
     const isPresentDateAfterEventEndDate = dayjs().isAfter(dayjs(event.end_date));
     if (isPresentDateAfterEventEndDate) eventOver = true;
+
 
     const { data: registrantData } = await getRegistrantById({ event_id: event.event_id, user_id: getCurrentUserId() })
 
@@ -117,7 +126,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         </div>
                     </div>
 
-                    {!isOrganizingOrg ? !isUserRegistered ? (
+                    {/* {!isOrganizingOrg ? !isUserRegistered ? (
                         <Button className="w-fit">Register Now</Button>
                     ) : (
                         <div className="flex gap-4 items-center">
@@ -128,13 +137,15 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         </div>
 
                     ) :
-                        null
+                        <p className="text-green-500 text-4xl">{"You are hosting this event"}</p>
                     }
                     {eventOver && (
                         <div className="text-xl text-primary font-semibold">
                             Event Completed
                         </div>
-                    )}
+                    )} */}
+                    {!isOrganizingOrg ? (isPresentDateAfterEventEndDate ? <div>{"The event is completed"}</div> : <Button className="w-fit">Register Now</Button>) : null}
+                    {isOrganizingOrg ? (isPresentDateAfterEventEndDate ? "Event completed successfully" : "You are hosting this event") : "register"}
                 </div>
             </div>
             {isOrganizingOrg && <EventRegistrants event_id={event.event_id} />}

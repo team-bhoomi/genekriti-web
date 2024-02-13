@@ -27,8 +27,7 @@ export const EventCard = async ({ event }: { event: Event }) => {
                 {event.event_banner_url ?
                     <Image src={"/images/quiz-banner/quiz1-banner.jpg"} width={275} height={275} alt="Banner url" className="rounded-md" />
                     :
-                    <div className="w-[275px] h-[130px] bg-green-300 rounded-md"></div>
-
+                    <Image src={"/images/quiz-banner/quiz1-banner.jpg"} width={275} height={275} alt="Banner url" className="rounded-md" />
                 }
                 <CardTitle className="w-[275px] text-wrap">{event.event_name}</CardTitle>
                 <CardDescription className="w-[275px] text-pretty max-h-[40px] truncate text-sm">

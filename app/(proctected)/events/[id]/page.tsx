@@ -10,7 +10,6 @@ interface EventPagePramams {
 }
 export default async function Page({ params }: EventPagePramams) {
     const { success, data } = await getEventById({ event_id: params.id })
-    var isOrg = true;
     return (
         <div>
             <div className="sticky top-[56px] left-0 bg-accent flex items-center justify-between w-full">

@@ -32,7 +32,7 @@ export default async function Page() {
             </div>
             <SearchBar />
             <div className="flex flex-wrap gap-10 px-4">
-                {response.data?.map((event, index) => {
+                {response.data?.reverse().map((event, index) => {
                     return (
                         <EventCard event={event} key={index} />
                     )
