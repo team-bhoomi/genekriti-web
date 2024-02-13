@@ -34,6 +34,7 @@ model User{
   questions_attempted Question_responses[]
   seller Products[]
   buyer Purchases[]
+  conversations Conversations[]
 }
 model Organization{
   org_id String @id @unique
@@ -263,4 +264,16 @@ model Purchases {
   purchased_at DateTime @default(now())
   buyer User @relation(fields: [buyer_id],references: [id],onDelete: Cascade)
   products Products @relation(fields: [product_id],references: [product_id],onDelete: Cascade)
+}
+
+model Conversations {
+  id String @id @unique @default(cuid())
+  user_id String
+  title String
+  resource_url String
+  prompt String
+  ai_response String
+  categories productCategory[]
+  created_at DateTime @default(now())
+  user User @relation(fields: [user_id],references: [id],onDelete: Cascade)
 }
