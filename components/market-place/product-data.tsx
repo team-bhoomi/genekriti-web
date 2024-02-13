@@ -8,10 +8,10 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "./ui/carousel";
-import { Card, CardContent } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+} from "../ui/carousel";
+import { Card, CardContent } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 
 export const ProductData = () => {
