@@ -1,4 +1,4 @@
-import { SearchBar } from "@/app/market-place/search-bar";
+import { SearchBar } from "@/app/(proctected)/market-place/search-bar";
 import { ProductCard } from "@/components/market-place/product-card";
 export const dynamic = "force-dynamic";
 

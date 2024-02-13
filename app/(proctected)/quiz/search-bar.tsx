@@ -1,7 +1,7 @@
 "use client";
 import { XCircle } from "lucide-react";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
 import { FilterBar } from "./filter-bar";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";

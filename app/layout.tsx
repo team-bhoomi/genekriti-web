@@ -21,7 +21,8 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <LayoutSetter>{children}</LayoutSetter>
+                {/* <LayoutSetter>{children}</LayoutSetter> */}
+                {children}
             </body>
         </html>
     );
