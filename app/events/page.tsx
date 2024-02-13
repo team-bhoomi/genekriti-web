@@ -1,6 +1,8 @@
 import { EventCard } from "@/components/events/event-card";
 import { SearchBar } from "./search-bar";
 
+export const dynamic = "force-dynamic";
+
 export default function Page() {
     return (
         <main>
