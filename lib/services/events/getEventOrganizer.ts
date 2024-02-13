@@ -14,7 +14,7 @@ export const getEventOrganizer = async ({
   message: string;
 }> => {
   try {
-    const response = await prisma.event.findUniqueOrThrow({
+    const response = await prisma.event.findUnique({
       where: {
         organizer_id: org_id,
         event_id,

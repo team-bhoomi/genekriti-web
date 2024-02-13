@@ -1,20 +1,31 @@
-"use client";
-import { ArrowLeftCircle, BadgeIndianRupee, Pencil } from "lucide-react";
+import { ArrowLeftCircle, BadgeIndianRupee, Pencil, Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ScanQR } from "./scan-qr";
 import { Attendees } from "./attendees";
-import { OrgAttendees } from "./org-attendees";
+import { EventRegistrants } from "./event-registrants";
 import { Event, Organization } from "@prisma/client"
 import dayjs from "dayjs";
 import { getEventOrganizer } from "@/lib/services/events/getEventOrganizer";
+import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
+import { getCurrentUserId } from "@/lib/constants/getCurrentUserId";
 
 type EventDataType = Event & { organizer: { name: string } }
 export const EventData = async ({ event }: { event: EventDataType }) => {
-    // var isOrganizing = await getEventOrganizer({ event_id: event.event_id, org_id: event.organizer_id });
-    var isOrganizingOrg = false;
-    var eventOver = false;
-    var isUserRegistered = false;
+    let isOrganizingOrg = false;
+    let eventOver = false;
+    let isUserRegistered = false;
+
+    const { success, data: orgData } = await getEventOrganizer({ org_id: event.organizer_id, event_id: event.event_id })
+
+    if (orgData) isOrganizingOrg = true;
+    const isPresentDateAfterEventEndDate = dayjs().isAfter(dayjs(event.end_date));
+    if (isPresentDateAfterEventEndDate) eventOver = true;
+
+    const { data: registrantData } = await getRegistrantById({ event_id: event.event_id, user_id: getCurrentUserId() })
+
+    if (registrantData) isUserRegistered = true;
+
     return (
         <div className="flex flex-col gap-3 px-6">
             <div className="flex items-center justify-between py-1">
@@ -26,14 +37,24 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                     Back
                 </Link>
                 {isOrganizingOrg && (
-                    <Button
-                        size={"sm"}
-                        variant={"outline"}
-                        className="text-base text-black flex items-center gap-1"
-                    >
-                        <Pencil width={18} height={18} />
-                        Edit Event
-                    </Button>
+                    <div className="flex justify-start items-center gap-3">
+                        <Button
+                            size={"sm"}
+                            variant={"outline"}
+                            className="text-base text-black flex items-center gap-1"
+                        >
+                            <Pencil width={18} height={18} />
+                            Edit Event
+                        </Button>
+                        <Button
+                            size={"sm"}
+                            variant={"outline"}
+                            className="text-base text-black flex items-center gap-1"
+                        >
+                            <Trash2Icon width={18} height={18} />
+                            Delete Event
+                        </Button>
+                    </div>
                 )}
             </div>
             <div className="flex gap-6">
@@ -96,7 +117,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         </div>
                     </div>
 
-                    {!isUserRegistered && !isOrganizingOrg ? (
+                    {!isOrganizingOrg ? !isUserRegistered ? (
                         <Button className="w-fit">Register Now</Button>
                     ) : (
                         <div className="flex gap-4 items-center">
@@ -105,7 +126,10 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                                 Registered
                             </div>
                         </div>
-                    )}
+
+                    ) :
+                        null
+                    }
                     {eventOver && (
                         <div className="text-xl text-primary font-semibold">
                             Event Completed
@@ -113,8 +137,8 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                     )}
                 </div>
             </div>
-            {isOrganizingOrg && <OrgAttendees />}
-            {eventOver && <Attendees />}
+            {isOrganizingOrg && <EventRegistrants event_id={event.event_id} />}
+            {isOrganizingOrg && <Attendees event_id={event.event_id} />}
         </div>
     );
 };
