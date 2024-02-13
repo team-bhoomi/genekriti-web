@@ -5,8 +5,9 @@ import { Button } from "../ui/button";
 import { ScanQR } from "./scan-qr";
 import { Attendees } from "./attendees";
 import { OrgAttendees } from "./org-attendees";
-
-export const EventData = () => {
+import { Event } from "@prisma/client"
+import dayjs from "dayjs";
+export const EventData = ({ event }: { event: Event }) => {
     var isOrg = false;
     var eventOver = false;
     var isUserRegistered = false;
@@ -33,54 +34,50 @@ export const EventData = () => {
             </div>
             <div className="flex gap-6">
                 <div className="w-full px-4 flex flex-col gap-5">
-                    <div className="w-full bg-slate-700 rounded-xl h-[200px]"></div>
-                    <div className="text-5xl font-semibold">Event Title</div>
+                    <div className="w-full bg-slate-700 rounded-xl h-[200px] flex items-center overflow-hidden">
+                        <img src="/images/quiz-banner/quiz1-banner.jpg" />
+                    </div>
+                    <div className="text-5xl font-semibold">{event.event_name}</div>
                     <div className="text-muted-foreground font-medium">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Omnis neque velit, ipsum ex deleniti, quia
-                        necessitatibus possimus assumenda voluptates, molestiae
-                        aspernatur corporis esse quam totam eum id dicta
-                        doloremque nesciunt. Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Fugiat, quae at! Doloribus
-                        est saepe quae voluptate aut dignissimos.
+                        {event.event_description}
                     </div>
                 </div>
                 <div className="w-full px-4 flex flex-col gap-7">
                     <div className="flex flex-col gap-2 *:text-lg *:flex *:flex-wrap *:items-center *:gap-2 *:font-semibold">
                         <div>
-                            Organisers:{" "}
+                            Organisers:{""}
                             <span className="font-normal">{"XYZ Company"}</span>
                         </div>
                         <div>
-                            Address:{" "}
-                            <span className="font-normal">{"Hall no 22"}</span>
+                            Venue:{" "}
+                            <span className="font-normal">{event.address}</span>
                         </div>
                         <div>
-                            Venue:{" "}
+                            Address:{" "}
                             <span className="font-normal">
-                                {"City"}, {"State"}, {"Country"},{" "}
-                                {"101010(Pincode)"}
+                                {event.city}, {event.state}, {event.country}{" "}
+                                {`(${event.pincode})`}
                             </span>
                         </div>
                         <div>
                             Date:
                             <span className="font-normal">
-                                {"00/00/0000"} - {"00/00/0000"}
+                                {dayjs(event.start_date?.toDateString()).format('DD/MM/YYYY')} - {dayjs(event.end_date?.toDateString()).format('DD/MM/YYYY')}
                             </span>
                         </div>
                         <div>
                             Time:
                             <span className="font-normal">
-                                {"00:00"} - {"00:00"}
+                                {`${event.start_date?.getHours()}:${event.start_date?.getMinutes()}`} - {`${event.end_date?.getHours()}:${event.start_date?.getMinutes()}`}
                             </span>
                         </div>
                         <div>
                             Duration:
-                            <span className="font-normal">5 days</span>
+                            <span className="font-normal">{dayjs(event.end_date).diff(dayjs(event.start_date), 'day', true)} {"days"}</span>
                         </div>
                         <div>
                             Registered:
-                            <span className="font-normal">30</span>
+                            <span className="font-normal">{event.registrants_count}</span>
                         </div>
                         <div>
                             Reward Points:

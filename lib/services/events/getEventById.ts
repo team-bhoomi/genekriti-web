@@ -18,7 +18,7 @@ export const getEventById = async ({
   error: unknown;
 }> => {
   try {
-    const response = await prisma.event.findUniqueOrThrow({
+    const response = await prisma.event.findUnique({
       where: {
         event_id,
       },
