@@ -12,12 +12,12 @@ import {
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { convertCategoryToLowerCase } from "@/lib/constants/convertCategoryToLowerCase";
 import { productCategory } from "@prisma/client";
 
-export const ProductData = ({ product }: { product: any }) => {
+export const ProductData = ({ product, children }: { product: any, children: React.ReactNode }) => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
     const [count, setCount] = useState(0);
@@ -96,7 +96,8 @@ export const ProductData = ({ product }: { product: any }) => {
                         />
                         <span>{product.price}</span>
                     </div>
-                    <Button className="py-2">Buy Now</Button>
+                    {children}
+                    {/* <Button className="py-2">Buy Now</Button> */}
                 </div>
             </div>
         </div>
