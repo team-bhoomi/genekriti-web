@@ -10,11 +10,6 @@ export const sellProductAction = async (formData: FormData) => {
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
   const categories = JSON.parse(formData.get("categories") as string);
-  console.log(seller_id);
-  console.log(price);
-  console.log(name);
-  console.log(description);
-  console.log(categories);
 
   let parsedCategories: productCategory[] = [];
   categories.forEach((category: productCategory) => {
