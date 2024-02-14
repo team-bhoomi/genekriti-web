@@ -5,11 +5,24 @@ export const getUserById = async ({
   id,
 }: {
   id: string;
-}): Promise<User | null> => {
-  const response = await prisma.user.findUnique({
-    where: {
-      id,
-    },
-  });
-  return response;
+}): Promise<{ data: User | null; success: boolean; error: unknown }> => {
+  try {
+    const response = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    return {
+      data: response,
+      error: null,
+      success: false,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      data: null,
+      success: false,
+      error,
+    };
+  }
 };
