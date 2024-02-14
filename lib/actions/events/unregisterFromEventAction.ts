@@ -1,5 +1,4 @@
 "use server";
-
 import { unregisterFromEvent } from "@/lib/services/events/unregisterFromEvent";
 import { revalidatePath } from "next/cache";
 

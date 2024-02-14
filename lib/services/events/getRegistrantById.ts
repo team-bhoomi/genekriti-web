@@ -16,12 +16,13 @@ export const getRegistrantById = async ({
 }> => {
   try {
     let isRegistered = true;
-    const response = await prisma.attendees.findUniqueOrThrow({
+    const response = await prisma.attendees.findUnique({
       where: {
         id: `${event_id}-${user_id}`,
       },
       include: {
         user: true,
+        event: true,
       },
     });
 

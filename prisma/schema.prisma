@@ -37,7 +37,7 @@ model User{
   conversations Conversations[]
 }
 model Organization{
-  org_id String @id @unique
+  org_id String @id 
   name String
   description String
   founder_name String
@@ -56,7 +56,7 @@ enum eventMode {
 }
 
 model Event{
-  event_id String @id @unique @default(cuid())
+  event_id String @id  @default(cuid())
   organizer_id String 
   event_name String
   event_description String

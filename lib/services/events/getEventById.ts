@@ -12,15 +12,22 @@ export const getEventById = async ({
 }: {
   event_id: string;
 }): Promise<{
-  data: Event | null;
+  data: any;
   success: boolean;
   messaage: string;
   error: unknown;
 }> => {
   try {
-    const response = await prisma.event.findUniqueOrThrow({
+    const response = await prisma.event.findUnique({
       where: {
         event_id,
+      },
+      include: {
+        organizer: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
     return {

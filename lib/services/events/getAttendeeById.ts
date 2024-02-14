@@ -17,6 +17,7 @@ export const getAttendeeById = async ({
     const response = await prisma.attendees.findUnique({
       where: {
         id: `${event_id}-${user_id}`,
+        is_present: true,
       },
       include: {
         user: true,

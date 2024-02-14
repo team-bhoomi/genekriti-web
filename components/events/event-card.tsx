@@ -9,45 +9,54 @@ import {
 import Link from "next/link";
 import { BadgeIndianRupee } from "lucide-react";
 import { Badge } from "../ui/badge";
+import { Event } from "@prisma/client";
+import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
+import { cookies } from "next/headers"
+import dayjs from "dayjs";
+import Image from "next/image";
 
-export const EventCard = () => {
-    var isUserRegistered = true;
+export const EventCard = async ({ event }: { event: Event }) => {
+    const user_id = JSON.parse(cookies().get("user")?.value!).id
+    const { data } = await getRegistrantById({ event_id: event.event_id, user_id });
+
+    var isUserRegistered = false;
+    if (data) isUserRegistered = true;
     return (
         <Card>
             <CardHeader>
-                <div className="w-[275px] h-[130px] bg-green-300 rounded-md"></div>
-                <CardTitle>Event Title</CardTitle>
-                <CardDescription className="w-[275px] text-pretty h-[40px] truncate text-sm">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Excepturi nisi hic nulla, similique animi, quidem totam
-                    voluptatibus autem accusantium vero, exercitationem eveniet
-                    quisquam obcaecati saepe labore laboriosam eius! Laudantium,
-                    eum!
+                {event.event_banner_url ?
+                    <Image src={"/images/quiz-banner/quiz1-banner.jpg"} width={275} height={275} alt="Banner url" className="rounded-md" />
+                    :
+                    <Image src={"/images/quiz-banner/quiz1-banner.jpg"} width={275} height={275} alt="Banner url" className="rounded-md" />
+                }
+                <CardTitle className="w-[275px] text-wrap">{event.event_name}</CardTitle>
+                <CardDescription className="w-[275px] text-pretty max-h-[40px] truncate text-sm">
+                    {event.event_description}
                 </CardDescription>
             </CardHeader>
             <CardContent className="pb-2">
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
-                    Mode: <span className="font-normal">{"Online"}</span>
+                    Mode: <span className="font-normal">{event.mode}</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                     Location:{" "}
                     <span className="font-normal">
-                        {"City Name"}, {"Country Name"}
+                        {event.city}, {event.country}
                     </span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                     Date:
                     <span className="font-normal">
-                        {"00/00/0000"} - {"00/00/0000"}
+                        {dayjs(event.start_date?.toDateString()).format('DD/MM/YYYY')} - {dayjs(event.end_date?.toDateString()).format('DD/MM/YYYY')}
                     </span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                     Duration:
-                    <span className="font-normal">5 days</span>
+                    <span className="font-normal">{Math.floor(dayjs(event.end_date).diff(dayjs(event.start_date), 'day', true))} {"days"}</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                     Registered:
-                    <span className="font-normal">30</span>
+                    <span className="font-normal">{event.registrants_count}</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                     Reward Points:
@@ -69,7 +78,7 @@ export const EventCard = () => {
             )}
             <CardFooter className="flex justify-between gap-2 *:w-full *:rounded-md *:text-sm *:font-medium *:py-2">
                 <Link
-                    href={"/events/abc"}
+                    href={`/events/${event.event_id}`}
                     className="text-primary-foreground text-center bg-primary px-4 hover:bg-primary/90"
                 >
                     View Details

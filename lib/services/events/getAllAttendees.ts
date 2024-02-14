@@ -2,7 +2,7 @@ import { serviceMessages } from "@/lib/constants/serviceMessage";
 import { prisma } from "@/lib/prisma";
 import { Attendees, User, UserType } from "@prisma/client";
 
-export type RegistrantsType = {
+export type AttendeesType = {
   attendees: {
     id: string;
     event_id: string;
@@ -21,35 +21,22 @@ export type RegistrantsType = {
   updated_at: Date;
   balance: number | null;
 };
-export const getAllRegistrants = async ({
+export const getAllAttendees = async ({
   event_id,
 }: {
   event_id: string;
 }): Promise<{
-  data: RegistrantsType[] | null;
+  data: AttendeesType[] | null;
   error: unknown;
   success: boolean;
   message: string;
 }> => {
   try {
-    // const response = await prisma.event.findMany({
-    //   where: {
-    //     event_id,
-    //   },
-    //   include: {
-    //     attendees: {
-    //       where: {
-    //         is_present: false,
-    //       },
-    //     },
-    //   },
-    // });
-
     const response = await prisma.user.findMany({
       where: {
         attendees: {
           some: {
-            is_present: false,
+            is_present: true,
             event_id,
           },
         },
