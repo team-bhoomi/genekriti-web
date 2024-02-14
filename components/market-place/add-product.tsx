@@ -26,15 +26,15 @@ export const AddProduct = () => {
         setProdCat(usedTags);
     };
     return (
-        <form className="flex flex-col gap-5 pr-5 w-full *:flex *:flex-col *:gap-1 *:text-lg *:font-medium">
+        <div className="flex flex-col gap-5 pr-5 w-full *:flex *:flex-col *:gap-1 *:text-lg *:font-medium">
             <div className="*:text-lg">
                 <Label>Product Name</Label>
-                <Input type="text" placeholder="Product Name" />
+                <Input type="text" name="name" placeholder="Product Name" />
             </div>
 
             <div className="*:text-lg">
                 <Label>Product Description</Label>
-                <Input type="text" placeholder="Product Description" />
+                <Input type="text" name="description" placeholder="Product Description" />
             </div>
 
             <div className="">
@@ -93,6 +93,6 @@ export const AddProduct = () => {
                     />
                 </div>
             </div>
-        </form>
+        </div>
     );
 };
