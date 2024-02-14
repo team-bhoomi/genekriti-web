@@ -14,6 +14,15 @@ import { deleteEventAction } from "@/lib/actions/events/deleteEventAction";
 import { EditEventButton } from "./edit-event-button";
 import { EventRegisterButton } from "./register-button";
 import ShowPassButton from "./show-pass-button";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "../ui/dialog";
 
 type EventDataType = Event & { organizer: { name: string } }
 export const EventData = async ({ event }: { event: EventDataType }) => {
@@ -107,6 +116,10 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                             <span className="font-normal">{event.registrants_count}</span>
                         </div>
                         <div>
+                            Attendees:
+                            <span className="font-normal">{event.attendees_count}</span>
+                        </div>
+                        <div>
                             Reward Points:
                             <BadgeIndianRupee
                                 width={20}
@@ -133,16 +146,34 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
 
 const DeleteEventButton = ({ event_id }: { event_id: string }) => {
     return (
-        <form action={deleteEventAction}>
-            <input name="event_id" defaultValue={event_id} className="hidden" />
-            <Button
-                size={"sm"}
-                variant={"outline"}
-                className="text-base text-black flex items-center gap-1"
-            >
-                <Trash2Icon width={18} height={18} />
-                Delete Event
-            </Button>
-        </form>
+
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button
+                    size={"sm"}
+                    variant={"outline"}
+                    className="text-base text-black flex items-center gap-1"
+                >
+                    <Trash2Icon width={18} height={18} />
+                    Delete Event
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Delete Event</DialogTitle>
+                    <DialogDescription>
+                        Are you sure you want to delete the event?
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                    <form action={deleteEventAction}>
+                        <input name="event_id" defaultValue={event_id} className="hidden" />
+
+                        <Button variant={"destructive"}>Delete</Button>
+                    </form>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+
     )
 }

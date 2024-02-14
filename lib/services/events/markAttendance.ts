@@ -22,7 +22,7 @@ export const markAttendence = async ({
       },
     });
 
-    const attendeeCountAfterMarking = await prisma.attendees.count({
+    const totalAttendees = await prisma.attendees.count({
       where: {
         is_present: true,
         event_id,
@@ -31,7 +31,7 @@ export const markAttendence = async ({
 
     const updateAttendeeCount = await prisma.event.update({
       data: {
-        attendees_count: attendeeCountAfterMarking,
+        attendees_count: totalAttendees,
       },
       where: {
         event_id,

@@ -24,7 +24,6 @@ export const Ticket = async ({ event_id, registerer_id }: { event_id: string, re
     const isPresentDateAfterStartDate = dayjs().isAfter(dayjs(registrant.event.start_date));
     if (isPresentDateAfterEventEndDate) IS_EVENT_OVER = true;
 
-    console.log(IsAttendeeAlready);
     if (IsAttendeeAlready == null) {
         if (orgnanizingOrg && isPresentDateAfterStartDate) {
             IS_ATTENDEE = true;
