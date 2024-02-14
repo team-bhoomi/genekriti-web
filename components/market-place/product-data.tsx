@@ -88,7 +88,13 @@ export const ProductData = () => {
                         <Badge variant={"secondary"}>Category 2</Badge>
                     </div>
                     <div className="font-semibold text-2xl flex items-center gap-1">
-                        Price: Rs
+                        Price:{" "}
+                        <BadgeIndianRupee
+                            width={24}
+                            height={24}
+                            fill="#ffbf00"
+                            color="#5C4033"
+                        />
                         <span>300</span>
                     </div>
                     <Button className="py-2">Buy Now</Button>
