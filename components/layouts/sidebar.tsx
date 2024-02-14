@@ -20,6 +20,8 @@ export const SideBar = ({
     setClicked: Dispatch<SetStateAction<boolean>>;
 }) => {
     const router = usePathname();
+    var i = router.indexOf("/", 1);
+    console.log();
     return (
         <NavigationMenu>
             <div className="flex items-center justify-center w-full px-3">
@@ -51,7 +53,10 @@ export const SideBar = ({
             </div>
             <NavigationMenuList>
                 {featureMenu.map(({ name, Icon, menulink }, id) => {
-                    if (router === menulink && menulink != "") {
+                    if (
+                        (router === menulink && menulink != "") ||
+                        (i > -1 && router.slice(0, i) == menulink)
+                    ) {
                         return (
                             <NavigationMenuItem
                                 key={id}

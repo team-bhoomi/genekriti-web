@@ -26,15 +26,13 @@ export const ListMenu = ({
 }) => {
     if (menulink != "")
         return (
-            <div>
-                <Link
-                    className={cn(navigationMenuTriggerStyle(), "group")}
-                    href={menulink}
-                >
-                    <Icon peerClassName="group-hover:fill-[#355245]" />
-                    {clicked && name}
-                </Link>
-            </div>
+            <Link
+                className="group pl-2 pr-1 font-medium flex items-center gap-3"
+                href={menulink}
+            >
+                <Icon peerClassName="group-hover:fill-foreground" />
+                {clicked && name}
+            </Link>
         );
     else
         return (
@@ -43,11 +41,10 @@ export const ListMenu = ({
                     <DialogTrigger asChild>
                         <button
                             className={cn(
-                                navigationMenuTriggerStyle(),
-                                "group focus:bg-transparent"
+                                "group pl-2 pr-1 font-medium flex items-center gap-3 focus:bg-transparent"
                             )}
                         >
-                            <Icon peerClassName="group-hover:fill-[#355245]" />
+                            <Icon peerClassName="group-hover:fill-foreground" />
                             {clicked && name}
                         </button>
                     </DialogTrigger>

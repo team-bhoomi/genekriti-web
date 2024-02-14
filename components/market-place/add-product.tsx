@@ -13,6 +13,7 @@ import {
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { productCategories } from "@/lib/data/categories";
+import { BadgeIndianRupee } from "lucide-react";
 export const AddProduct = () => {
     const [prodCat, setProdCat] = useState<string[]>([]);
     const handleTags = (tag: string) => {
@@ -75,13 +76,20 @@ export const AddProduct = () => {
             <div className="*:text-lg">
                 <Label>Product Price</Label>
                 <div className="flex items-center gap-4 *:text-lg">
-                    <span>Rs: </span>
+                    <span className="flex items-center">
+                        <BadgeIndianRupee
+                            width={24}
+                            height={24}
+                            fill="#ffbf00"
+                            color="#5C4033"
+                        />
+                    </span>
                     <Input
                         type="number"
                         min={10}
                         max={2000}
                         step={1}
-                        placeholder="Rs 10"
+                        placeholder="10"
                     />
                 </div>
             </div>

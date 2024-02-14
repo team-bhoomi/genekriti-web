@@ -8,6 +8,7 @@ import {
 } from "../ui/card";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
+import { BadgeIndianRupee } from "lucide-react";
 
 export const ProductCard = () => {
     return (
@@ -32,7 +33,13 @@ export const ProductCard = () => {
             </CardContent>
             <CardFooter className="flex justify-between gap-2 *:w-full *:text-sm *:rounded-md *:py-2">
                 <div className="text-left font-semibold px-1 flex gap-1">
-                    Price: Rs
+                    Price:{" "}
+                    <BadgeIndianRupee
+                        width={20}
+                        height={20}
+                        fill="#ffbf00"
+                        color="#5C4033"
+                    />
                     <span>300</span>
                 </div>
                 <Link
