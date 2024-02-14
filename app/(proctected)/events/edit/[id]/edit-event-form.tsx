@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useRef } from "react";
 
 import { useFormState, useFormStatus } from "react-dom";
@@ -11,14 +10,13 @@ import { prisma } from "@/lib/prisma";
 import dayjs from "dayjs";
 import { updateEventAction } from "@/lib/actions/events/updateEventAction";
 import { Select, SelectContent, SelectItem, SelectValue, SelectTrigger } from "@/components/ui/select";
+import { Event } from "@prisma/client";
 
 
-export const EditEvent = async ({ event_id }: { event_id: string }) => {
-  const { pending } = useFormStatus();
-  const event = await prisma.event.findUnique({ where: { event_id } });
+export const EditEvent = async ({ event }: { event: Event }) => {
   return (
     <form action={updateEventAction} className="flex h-full justify-between gap-5 px-5">
-      <input className="hidden" defaultValue={event_id} name="event_id" />
+      <input className="hidden" defaultValue={event.event_id} name="event_id" />
       <div className="flex flex-col gap-5 pr-5 w-full *:flex *:flex-col *:gap-1 *:text-lg *:font-normal">
         <div className="w-full bg-slate-700 rounded-xl h-[200px]"></div>
 
@@ -39,7 +37,7 @@ export const EditEvent = async ({ event_id }: { event_id: string }) => {
       <div className="flex flex-col items-center gap-5 pr-5 w-full *:flex *:items-center *:gap-4 *:w-full">
         <div className="*:text-lg !flex-row items-center !gap-5">
           <Label>Mode :</Label>
-          <div className="flex items-center gap-5">
+          {/* <div className="flex items-center gap-5">
             <Label
               htmlFor="offline"
               className="flex items-center gap-1 text-lg"
@@ -68,9 +66,9 @@ export const EditEvent = async ({ event_id }: { event_id: string }) => {
               />
               Online
             </Label>
-          </div>
-          {/* <Select required name="mode" defaultValue="OFFLINE">
-          
+          </div> */}
+          <Select required name="mode" defaultValue="OFFLINE">
+
             <SelectTrigger className="w-[180px]">
               <SelectValue
                 placeholder="Offline" />
@@ -79,7 +77,7 @@ export const EditEvent = async ({ event_id }: { event_id: string }) => {
               <SelectItem value="OFFLINE">Offline</SelectItem>
               <SelectItem value="ONLINE">Online</SelectItem>
             </SelectContent>
-          </Select> */}
+          </Select>
         </div>
         <div className="*:text-lg">
           <Label className="flex w-fit whitespace-pre">
@@ -124,7 +122,7 @@ export const EditEvent = async ({ event_id }: { event_id: string }) => {
           </div>
         </div>
 
-        <Button type="submit" className="!w-fit mt-4">{pending ? "LOADING..." : "Edit Event"}</Button>
+        <Button type="submit" className="!w-fit mt-4">{"Edit Event"}</Button>
       </div>
     </form>
   );

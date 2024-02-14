@@ -1,4 +1,5 @@
 import { EventData } from "@/components/events/event-data";
+import { Button } from "@/components/ui/button";
 import { getEventById } from "@/lib/services/events/getEventById";
 import { CalendarPlus } from "lucide-react";
 import Link from "next/link";

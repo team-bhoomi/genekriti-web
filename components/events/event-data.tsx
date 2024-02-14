@@ -33,7 +33,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
     if (isPresentDateAfterEventEndDate) eventOver = true;
 
 
-    const { data: registrantData } = await getRegistrantById({ event_id: event.event_id, user_id: getCurrentUserId() })
+    const { data: registrantData } = await getRegistrantById({ event_id: event.event_id, user_id: await getCurrentUserId() })
 
     if (registrantData) isUserRegistered = true;
 
@@ -122,6 +122,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
 
                     {!isOrganizingOrg ? (isPresentDateAfterEventEndDate ? <div>{"The event is completed"}</div> : <Button className="w-fit">Register Now</Button>) : null}
                     {isOrganizingOrg ? (isPresentDateAfterEventEndDate ? "Event completed successfully" : "You are hosting this event") : "register"}
+
                 </div>
             </div>
             {isOrganizingOrg && <EventRegistrants event_id={event.event_id} />}
