@@ -13,8 +13,11 @@ import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import { convertCategoryToLowerCase } from "@/lib/constants/convertCategoryToLowerCase";
+import { productCategory } from "@prisma/client";
 
-export const ProductData = () => {
+export const ProductData = ({ product }: { product: any }) => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
     const [count, setCount] = useState(0);
@@ -65,27 +68,23 @@ export const ProductData = () => {
                 </div>
                 <div className="flex flex-col gap-4 w-full">
                     <div className="text-5xl font-semibold leading-none tracking-tight pt-2">
-                        Product Title
+                        {product.name}
                     </div>
                     <div className="text-sm">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Sed vitae commodi sit aliquid eveniet, dolores
-                        illo cum doloribus sunt atque dicta in eligendi,
-                        quisquam molestias et nam pariatur odit explicabo!
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Nihil, iure ratione officiis nemo eius, voluptate
-                        expedita similique omnis voluptatibus totam quisquam
-                        architecto soluta est fugit assumenda vero explicabo
-                        repellendus obcaecati.
+                        {product.description}
                     </div>
                     <span className="text-muted-foreground font-semibold">
-                        sold by: John Doe
+                        sold by: {`${product.seller.first_name} ${product.seller.last_name}`}
                     </span>
-                    <span className="font-medium">launched on: 00/00/0000</span>
+                    <span className="font-medium">launched on: {dayjs(product.created_at).format("DD/MM/YYYY")}</span>
                     <div className="flex flex-wrap items-end gap-2 font-medium">
-                        Product Category:
-                        <Badge variant={"secondary"}>Category 1</Badge>
-                        <Badge variant={"secondary"}>Category 2</Badge>
+                        Product Categories:
+                        {product.categories.map((category: productCategory, i: number) => {
+                            let prasedCategory = convertCategoryToLowerCase(category);
+                            return (
+                                <Badge key={i} variant={"secondary"}>{prasedCategory}</Badge>
+                            )
+                        })}
                     </div>
                     <div className="font-semibold text-2xl flex items-center gap-1">
                         Price:{" "}
@@ -95,7 +94,7 @@ export const ProductData = () => {
                             fill="#ffbf00"
                             color="#5C4033"
                         />
-                        <span>300</span>
+                        <span>{product.price}</span>
                     </div>
                     <Button className="py-2">Buy Now</Button>
                 </div>
