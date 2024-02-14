@@ -34,7 +34,7 @@ const EventRegistrantsCard = ({ registrant }: { registrant: RegistrantsType }) =
             <div className="flex flex-col items-center pb-1">
                 Registered on: <span>{dayjs(registrant.attendees[0].registered_at).format("DD/MM/YYYY")}</span>
             </div>
-            <Link href={`/attendee/${event_id}/${user_id}`}>
+            <Link href={`/attendees/${event_id}/${user_id}`}>
                 <Button>Scan QR</Button>
             </Link>
         </div>

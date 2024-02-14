@@ -52,7 +52,7 @@ export const EventCard = async ({ event }: { event: Event }) => {
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                     Duration:
-                    <span className="font-normal">{dayjs(event.end_date).diff(dayjs(event.start_date), 'day', true)} {"days"}</span>
+                    <span className="font-normal">{Math.floor(dayjs(event.end_date).diff(dayjs(event.start_date), 'day', true))} {"days"}</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                     Registered:

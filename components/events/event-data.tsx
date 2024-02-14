@@ -100,7 +100,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         </div>
                         <div>
                             Duration:
-                            <span className="font-normal">{dayjs(event.end_date).diff(dayjs(event.start_date), 'day', true)} {"days"}</span>
+                            <span className="font-normal">{Math.floor(dayjs(event.end_date).diff(dayjs(event.start_date), 'day', true))} {"days"}</span>
                         </div>
                         <div>
                             Registered:

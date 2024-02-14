@@ -33,7 +33,7 @@ const AttendeeCard = ({ attendee }: { attendee: AttendeesType }) => {
             <div className="flex flex-col items-center pb-1">
                 Registered on: <span>{dayjs(attendee.attendees[0].registered_at).format("DD/MM/YYYY")}</span>
             </div>
-            <Link href={`/attendee/${event_id}/${user_id}`}>
+            <Link href={`/attendees/${event_id}/${user_id}`}>
                 <Button>Show Pass</Button>
             </Link>
         </div>
