@@ -4,9 +4,13 @@ import { Purchases } from "@prisma/client";
 export const buyProduct = async ({
   buyer_id,
   product_id,
+  price,
+  seller_id,
 }: {
   buyer_id: string;
   product_id: string;
+  price: number;
+  seller_id: string;
 }): Promise<{ data: any; error: unknown; success: boolean }> => {
   try {
     // adds in purchase table
@@ -21,15 +25,15 @@ export const buyProduct = async ({
     });
 
     // gets price and seller_id of the product
-    const productRes = await prisma.products.findUniqueOrThrow({
-      where: {
-        product_id,
-      },
-      select: {
-        price: true,
-        seller_id: true,
-      },
-    });
+    // const productRes = await prisma.products.findUniqueOrThrow({
+    //   where: {
+    //     product_id,
+    //   },
+    //   select: {
+    //     price: true,
+    //     seller_id: true,
+    //   },
+    // });
 
     // updates the product's status as sold
     const updateProductSoldStatus = await prisma.products.update({
@@ -44,10 +48,10 @@ export const buyProduct = async ({
     // adds in transctions table
     const transaction = await prisma.transactions.create({
       data: {
-        amount: productRes.price,
+        amount: price,
         source: "PRODUCT_EXCHANGE",
         payer_id: buyer_id,
-        recipent_id: productRes.seller_id,
+        recipent_id: seller_id,
       },
       include: {
         payer: {
@@ -66,7 +70,7 @@ export const buyProduct = async ({
     // updates reciepent balance
     const updateRecpient = await prisma.user.update({
       data: {
-        balance: transaction.recipent.balance! + productRes.price,
+        balance: transaction.recipent.balance! + price,
       },
       where: {
         id: transaction.recipent_id,
@@ -76,7 +80,7 @@ export const buyProduct = async ({
     //updates payers balance
     const updatePayer = await prisma.user.update({
       data: {
-        balance: transaction.payer.balance! - productRes.price,
+        balance: transaction.payer.balance! - price,
       },
       where: {
         id: transaction.payer_id,
