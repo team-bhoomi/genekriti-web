@@ -13,12 +13,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body>
-                <LayoutSetter coinChildren={<CoinBar />}>
-                    {children}{" "}
-                </LayoutSetter>
-            </body>
-        </html>
+        <LayoutSetter coinChildren={<CoinBar />}>
+            {children}{" "}
+        </LayoutSetter>
     );
 }
