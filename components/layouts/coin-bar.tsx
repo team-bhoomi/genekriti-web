@@ -1,6 +1,7 @@
 import { BadgeIndianRupee } from "lucide-react";
 
 export const CoinBar = () => {
+    console.log("I AM WORKING");
     return (
         <div className="sticky top-0 right-0 bg-accent w-full h-[56px] flex items-start justify-between gap-1 pt-2 pr-2 z-20">
             <span>Welcome to Genekriti,</span>
