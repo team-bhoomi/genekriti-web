@@ -1,5 +1,4 @@
 "use server";
-
 import { updateEventById } from "@/lib/services/events/updateEventById";
 import { eventMode } from "@prisma/client";
 import { revalidatePath } from "next/cache";

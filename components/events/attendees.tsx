@@ -1,3 +1,4 @@
+"use server";
 import { AttendeesType, getAllAttendees } from "@/lib/services/events/getAllAttendees";
 import { Button } from "../ui/button";
 import Link from "next/link";

@@ -22,6 +22,7 @@ export const getRegistrantById = async ({
       },
       include: {
         user: true,
+        event: true,
       },
     });
 

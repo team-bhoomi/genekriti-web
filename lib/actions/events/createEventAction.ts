@@ -1,5 +1,4 @@
 "use server";
-
 /**
  * USE CASE
  * 1. In create event form as server action to create event

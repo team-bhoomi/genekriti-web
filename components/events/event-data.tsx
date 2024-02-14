@@ -12,6 +12,8 @@ import { getCurrentUserId } from "@/lib/constants/getCurrentUserId";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { deleteEventAction } from "@/lib/actions/events/deleteEventAction";
 import { EditEventButton } from "./edit-event-button";
+import { EventRegisterButton } from "./register-button";
+import ShowPassButton from "./show-pass-button";
 
 type EventDataType = Event & { organizer: { name: string } }
 export const EventData = async ({ event }: { event: EventDataType }) => {
@@ -21,14 +23,10 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
 
     const { success, data: orgData } = await getEventOrganizer({ org_id: event.organizer_id, event_id: event.event_id })
 
-    // console.log(orgData);
     const { getUser } = getKindeServerSession()
     const user = await getUser();
-    // console.log("ORGANIZER:", event.organizer_id);
-    // console.log("LOGGED IN:", user?.id)
 
     orgData.organizer.org_id === user?.id ? isOrganizingOrg = true : isOrganizingOrg = false;
-    console.log(isOrganizingOrg);
     const isPresentDateAfterEventEndDate = dayjs().isAfter(dayjs(event.end_date));
     if (isPresentDateAfterEventEndDate) eventOver = true;
 
@@ -120,9 +118,10 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         </div>
                     </div>
 
-                    {!isOrganizingOrg ? (isPresentDateAfterEventEndDate ? <div>{"The event is completed"}</div> : <Button className="w-fit">Register Now</Button>) : null}
-                    {isOrganizingOrg ? (isPresentDateAfterEventEndDate ? "Event completed successfully" : "You are hosting this event") : "register"}
+                    {!isOrganizingOrg ? (eventOver ? <div>{"The event is completed"}</div> : !isUserRegistered && <EventRegisterButton event_id={event.event_id} user_id={user?.id as string} />) : null}
+                    {isOrganizingOrg ? (eventOver ? "Event completed successfully" : "You are hosting this event") : null}
 
+                    {isUserRegistered && !isOrganizingOrg && <ShowPassButton event_id={event.event_id} user_id={user?.id as string} />}
                 </div>
             </div>
             {isOrganizingOrg && <EventRegistrants event_id={event.event_id} />}
@@ -132,7 +131,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
 };
 
 
-const DeleteEventButton = async ({ event_id }: { event_id: string }) => {
+const DeleteEventButton = ({ event_id }: { event_id: string }) => {
     return (
         <form action={deleteEventAction}>
             <input name="event_id" defaultValue={event_id} className="hidden" />
