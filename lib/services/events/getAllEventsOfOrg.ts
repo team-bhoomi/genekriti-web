@@ -16,6 +16,9 @@ export const getAllEventsOfOrg = async ({
       where: {
         organizer_id: org_id,
       },
+      include: {
+        organizer: true,
+      },
     });
     return {
       data: response,

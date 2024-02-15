@@ -11,6 +11,8 @@ export default async function Page() {
         redirect("/");
     }
     // console.log(data);
+
+
     return (
         <main className="w-full min-h-screen pr-4 pb-10 flex flex-col gap-5">
             <div className="sticky top-[56px] left-0 bg-accent flex items-center justify-between w-full text-4xl font-semibold">
