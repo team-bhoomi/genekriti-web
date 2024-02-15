@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 
 export const getSeller = async ({ product_id }: { product_id: string }) => {
   try {
-    const response = await prisma.products.findUniqueOrThrow({
+    const response = await prisma.products.findUnique({
       where: {
         product_id,
       },
@@ -11,17 +11,8 @@ export const getSeller = async ({ product_id }: { product_id: string }) => {
         images: true,
       },
     });
-    return {
-      data: response,
-      error: null,
-      success: true,
-    };
+    return response;
   } catch (error) {
     console.log(error);
-    return {
-      data: null,
-      error,
-      success: false,
-    };
   }
 };
