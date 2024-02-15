@@ -20,6 +20,7 @@ import { ProductPurchaseHistoryCard } from "./product-purchase-history-card";
 
 export async function ProfileHistory({ data }: { data: any }) {
     // const {} = await getRegistrantById({event_id : data.attendees})
+    const transactions = [...data.payer_transactions, ...data.recipent_transactions]
     return (
         <Tabs defaultValue="events" className="w-full p-5 pt-0">
             <TabsList className="flex w-full items-center justify-between">
@@ -79,9 +80,13 @@ export async function ProfileHistory({ data }: { data: any }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        <TransactionHistoryCard />
-                        <TransactionHistoryCard />
-                        <TransactionHistoryCard />
+                        {
+                            transactions ? transactions.map((transaction: any, i: number) => {
+                                return (
+                                    <TransactionHistoryCard transaction={transaction} key={i} />
+                                )
+                            }) : "No transactions yet"
+                        }
                     </CardContent>
                 </Card>
             </TabsContent>

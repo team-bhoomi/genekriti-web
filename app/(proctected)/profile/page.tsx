@@ -10,7 +10,7 @@ export default async function Page() {
     if (!data) {
         redirect("/");
     }
-    console.log(data);
+    // console.log(data);
     return (
         <main className="w-full min-h-screen pr-4 pb-10 flex flex-col gap-5">
             <div className="sticky top-[56px] left-0 bg-accent flex items-center justify-between w-full text-4xl font-semibold">
