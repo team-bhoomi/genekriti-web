@@ -4,13 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
-    "ts-node": "ts-node --compiler-options '{\"module\":\"commonJS\"}'"
-  },
-  "prisma": {
-    "seed": "node --loader ts-node/esm prisma/seed.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.1.9",
