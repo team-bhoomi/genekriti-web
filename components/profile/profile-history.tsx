@@ -24,7 +24,7 @@ import { EventUserHistoryCard } from "./event-user-history-card";
 
 export async function ProfileHistory({ data }: { data: any }) {
     const transactions = [...data.payer_transactions, ...data.recipent_transactions]
-    console.log(data);
+    // console.log(data);
     const IS_ORG: boolean = data.role === "ORGANIZATION";
     let eventDetails = [];
     let userEventDetails;
