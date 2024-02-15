@@ -212,6 +212,7 @@ enum questionDifficulty {
 
 model Questions {
   question_id String @id @unique @default(cuid())
+  question String
   opt_1 String
   opt_2 String
   opt_3 String

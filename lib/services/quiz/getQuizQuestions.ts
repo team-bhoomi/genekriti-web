@@ -5,28 +5,15 @@
 import { prisma } from "@/lib/prisma";
 import { Questions } from "@prisma/client";
 
-export const getQuizQuestions = async ({
-  group,
-}: {
-  group: number;
-}): Promise<{ data: Questions[] | null; error: unknown; success: boolean }> => {
+export const getQuizQuestions = async ({ group }: { group: number }) => {
   try {
     const response = await prisma.questions.findMany({
       where: {
         group,
       },
     });
-    return {
-      data: response,
-      error: null,
-      success: true,
-    };
+    return response;
   } catch (error) {
     console.log(error);
-    return {
-      data: null,
-      error,
-      success: false,
-    };
   }
 };

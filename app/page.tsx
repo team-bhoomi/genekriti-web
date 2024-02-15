@@ -1,5 +1,7 @@
 
 import { Button } from "@/components/ui/button";
+import { questions } from "@/lib/data/quiz";
+import { prisma } from "@/lib/prisma";
 import { RegisterLink, LoginLink, getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation";
 
@@ -9,6 +11,7 @@ export default async function Home() {
   if (isAuthed) {
     redirect("/dashboard");
   }
+
   return (
     <main>
       <h1 className="text-3xl text-sky-800">Welcome to Genekriti</h1>

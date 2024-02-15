@@ -8,18 +8,29 @@ import {
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { BadgeIndianRupee } from "lucide-react";
+import { convertCategoryToLowerCase } from "@/lib/constants/convertCategoryToLowerCase";
+import { questionCategory } from "@prisma/client";
 
-export const QuizCard = ({ imgSrc }: { imgSrc: string }) => {
+export const QuizCard = ({ quiz, img_url }: { quiz: any, img_url: string }) => {
     var hasUserCompletedQuiz = true;
+    // console.log(quiz);
+    let categories: questionCategory[] = [];
+    quiz.forEach((x: any) => {
+        categories.push(x.category)
+    })
+    // const uniqueSet = new Set(categories);
+    const uniqueCategories = categories.filter((value, index, self) => {
+        return self.indexOf(value) === index;
+    });
     return (
         <Card>
             <CardHeader>
                 <div className="w-[275px] h-[130px] bg-green-300 rounded-md flex items-center justify-center overflow-hidden">
-                    <img src={imgSrc} className="w-full" />
+                    <img src={img_url} className="w-full" />
                 </div>
 
                 <CardTitle className="flex justify-between items-center">
-                    Quiz 1
+                    Quiz {quiz[0].group!}
                     {hasUserCompletedQuiz && (
                         <Badge className="mx-4 mb-2 font-medium bg-primary/30 text-black">
                             Completed
@@ -28,9 +39,6 @@ export const QuizCard = ({ imgSrc }: { imgSrc: string }) => {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
-                    Level: <span className="font-normal">{"Easy"}</span>
-                </div>
                 <div className="text-left font-semibold flex gap-1 text-sm">
                     Reward Points:
                     <span className="flex items-center gap-1 font-normal">
@@ -40,14 +48,16 @@ export const QuizCard = ({ imgSrc }: { imgSrc: string }) => {
                             fill="#ffbf00"
                             color="#5C4033"
                         />{" "}
-                        300
+                        {"9"}
                     </span>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 w-[280px]">
-                    <Badge variant={"secondary"}>Category 1</Badge>
-                    <Badge variant={"secondary"}>Category 2</Badge>
-                    <Badge variant={"secondary"}>Category 3</Badge>
-                    <Badge variant={"secondary"}>Category 4</Badge>
+                    {uniqueCategories.map((q: any, i: number) => {
+                        let parsedCategory = convertCategoryToLowerCase(q)
+                        return (
+                            <Badge key={i} variant={"secondary"}>{parsedCategory}</Badge>
+                        )
+                    })}
                 </div>
             </CardContent>
 
