@@ -2,6 +2,7 @@ import {
     LayoutDashboard,
     LineChart,
     Power,
+    Recycle,
     ShoppingBag,
     SpellCheck,
     Sprout,
@@ -37,6 +38,14 @@ export const featureMenu = [
     },
     {
         id: 2,
+        name: "ReKriti",
+        Icon: ({ peerClassName }: { peerClassName: string }) => (
+            <Recycle width={20} height={20} className={cn(peerClassName, "")} />
+        ),
+        menulink: "/rekriti",
+    },
+    {
+        id: 3,
         name: "Market Place",
         Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
             <ShoppingBag width={20} height={20} />
@@ -44,7 +53,7 @@ export const featureMenu = [
         menulink: "/market-place",
     },
     {
-        id: 3,
+        id: 4,
         name: "Events",
         Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
             <Ticket width={20} height={20} />
@@ -52,7 +61,7 @@ export const featureMenu = [
         menulink: "/events",
     },
     {
-        id: 4,
+        id: 5,
         name: "Plant a Sap",
         Icon: ({ peerClassName }: { peerClassName: string }) => (
             <Sprout width={20} height={20} className={cn(peerClassName, "")} />
@@ -60,7 +69,7 @@ export const featureMenu = [
         menulink: "/plant-a-sap",
     },
     {
-        id: 5,
+        id: 6,
         name: "Take a Quiz",
         Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
             <SpellCheck width={20} height={20} />
@@ -68,21 +77,14 @@ export const featureMenu = [
         menulink: "/quiz",
     },
     {
-        id: 6,
+        id: 7,
         name: "Analytics",
         Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
             <LineChart width={20} height={20} />
         ),
         menulink: "/analytics",
     },
-    {
-        id: 7,
-        name: "R3",
-        Icon: ({ peerClassName }: { peerClassName: string }) => (
-            <Ticket width={20} height={20} className={cn(peerClassName, "")} />
-        ),
-        menulink: "/r3",
-    },
+
     {
         id: 8,
         name: "Log Out",
