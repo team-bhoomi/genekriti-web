@@ -222,17 +222,19 @@ model Questions {
   points Int
   category questionCategory
   group Int
+  responses Question_responses[]
 }
 
 model Question_responses {
-  response_id String @id @unique @default(cuid())
-  question_id String
-  user_id String
+  response_id String @id @default(cuid())
+  question_id String 
+  user_id String  
   user_answer String
   is_correct Boolean
   group Int
   attempted_at DateTime @default(now())
   user User @relation(fields: [user_id], references: [id],onDelete: Cascade)
+  questionData Questions @relation(fields: [question_id],references: [question_id],onDelete: Cascade)
 }
 
 model Products {

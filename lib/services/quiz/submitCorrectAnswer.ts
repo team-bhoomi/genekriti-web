@@ -25,6 +25,26 @@ export const submitCorrectAnswer = async ({
         is_correct: true,
         group,
       },
+      include: {
+        user: {
+          select: {
+            balance: true,
+          },
+        },
+        questionData: {
+          select: {
+            points: true,
+          },
+        },
+      },
+    });
+    await prisma.user.update({
+      where: {
+        id: user_id,
+      },
+      data: {
+        balance: response.user.balance! + response.questionData.points,
+      },
     });
     return {
       data: response,

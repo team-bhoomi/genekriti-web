@@ -18,10 +18,11 @@ export const QuizCard = ({ quiz, img_url }: { quiz: any, img_url: string }) => {
     quiz.forEach((x: any) => {
         categories.push(x.category)
     })
-    // const uniqueSet = new Set(categories);
     const uniqueCategories = categories.filter((value, index, self) => {
         return self.indexOf(value) === index;
     });
+    // console.log(quiz);
+
     return (
         <Card>
             <CardHeader>
@@ -63,7 +64,7 @@ export const QuizCard = ({ quiz, img_url }: { quiz: any, img_url: string }) => {
 
             <CardFooter className="flex justify-between gap-2 *:w-full *:text-sm *:rounded-md *:py-2">
                 <Link
-                    href={"/quiz/1/question-1"}
+                    href={`/quiz/${quiz[0].group}/${quiz[0].question_id}`}
                     className="text-primary-foreground text-center font-medium bg-primary px-4 hover:bg-primary/90"
                 >
                     Start
