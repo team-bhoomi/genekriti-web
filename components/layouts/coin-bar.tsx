@@ -6,7 +6,7 @@ export const CoinBar = async () => {
     const { getUser } = getKindeServerSession()
     const user = await getUser();
     let USER_BALANCE;
-    const { data } = await getUserById({ id: user?.id as string })
+    const data = await getUserById({ id: user?.id as string })
     if (!data) {
         USER_BALANCE = 0;
     } else {
