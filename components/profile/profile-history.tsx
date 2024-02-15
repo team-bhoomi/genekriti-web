@@ -14,8 +14,12 @@ import { EventHistoryCard } from "./event-history-card";
 import { ProductHistoryCard } from "./product-history-card";
 import { TransactionHistoryCard } from "./transaction-history-card";
 import { ConversationHistoryCard } from "./conversation-history-card";
+import { getEventById } from "@/lib/services/events/getEventById";
+import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
+import { ProductPurchaseHistoryCard } from "./product-purchase-history-card";
 
-export function ProfileHistory() {
+export async function ProfileHistory({ data }: { data: any }) {
+    // const {} = await getRegistrantById({event_id : data.attendees})
     return (
         <Tabs defaultValue="events" className="w-full p-5 pt-0">
             <TabsList className="flex w-full items-center justify-between">
@@ -50,9 +54,19 @@ export function ProfileHistory() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        <ProductHistoryCard />
-                        <ProductHistoryCard />
-                        <ProductHistoryCard />
+                        {data.seller ? data.seller.map((product: any, i: number) => {
+                            return (
+                                <ProductHistoryCard key={i} product={product} />
+
+                            )
+                        }) : "You have not sold any products yet"}
+
+                        {data.buyer ? data.buyer.map((product: any, i: number) => {
+                            return (
+                                <ProductPurchaseHistoryCard product={product} key={i} />
+
+                            )
+                        }) : "You have not bought any products yet"}
                     </CardContent>
                 </Card>
             </TabsContent>
