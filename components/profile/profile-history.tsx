@@ -18,21 +18,22 @@ import { getEventById } from "@/lib/services/events/getEventById";
 import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
 import { ProductPurchaseHistoryCard } from "./product-purchase-history-card";
 import { getAllEventsOfOrg } from "@/lib/services/events/getAllEventsOfOrg";
+import { getAllAttendees } from "@/lib/services/events/getAllAttendees";
+import { getAllEventsAttendedByUser } from "@/lib/services/events/getAllEventsAttendedByUser";
+import { EventUserHistoryCard } from "./event-user-history-card";
 
 export async function ProfileHistory({ data }: { data: any }) {
-    // const {} = await getRegistrantById({event_id : data.attendees})
     const transactions = [...data.payer_transactions, ...data.recipent_transactions]
     console.log(data);
     const IS_ORG: boolean = data.role === "ORGANIZATION";
     let eventDetails = [];
+    let userEventDetails;
     if (IS_ORG) {
         const { data: eventDetailsFetch } = await getAllEventsOfOrg({ org_id: data.id as string })
-        // console.log(eventDetailsFetch);
         eventDetails = eventDetailsFetch;
+    } else {
+        userEventDetails = await getAllEventsAttendedByUser({ user_id: data.id })
     }
-    // console.log("--------------------------------------------");
-    // console.log(eventDetails);
-    // console.log("--------------------------------------------");
     return (
         <Tabs defaultValue="events" className="w-full p-5 pt-0">
             <TabsList className="flex w-full items-center justify-between">
@@ -52,13 +53,17 @@ export async function ProfileHistory({ data }: { data: any }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        {eventDetails ? eventDetails.map((event: any, i: number) => {
+                        {IS_ORG && eventDetails ? eventDetails.map((event: any, i: number) => {
                             return (
-                                <div>
-                                    <EventHistoryCard event={event} key={i} />
-                                </div>
+                                <EventHistoryCard event={event} key={i} />
                             )
-                        }) : "null"}
+                        }) : null}
+
+                        {!IS_ORG && userEventDetails ? userEventDetails.map((event: any, i: number) => {
+                            return (
+                                <EventUserHistoryCard event={event} key={i} />
+                            )
+                        }) : null}
                     </CardContent>
                 </Card>
             </TabsContent>
