@@ -27,7 +27,8 @@ export const UserOnboardForm = ({ user }: { user: KindeUser }) => {
         e.preventDefault();
 
         // Add user to DB
-        const response = await fetch("http://localhost:3000/api/user", {
+        const BASE_API_URL = process.env.BASE_API_URL;
+        const response = await fetch(`${BASE_API_URL}/user`, {
             method: "POST",
             body: JSON.stringify({
                 id: user.id,

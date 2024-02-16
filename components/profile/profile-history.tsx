@@ -21,8 +21,13 @@ import { getAllEventsOfOrg } from "@/lib/services/events/getAllEventsOfOrg";
 import { getAllAttendees } from "@/lib/services/events/getAllAttendees";
 import { getAllEventsAttendedByUser } from "@/lib/services/events/getAllEventsAttendedByUser";
 import { EventUserHistoryCard } from "./event-user-history-card";
+import { redirect } from "next/navigation";
 
 export async function ProfileHistory({ data }: { data: any }) {
+    // TODO hanlde cases when user has no data on website
+    if (!data?.payer_transactions || !data?.recipent_transactions) {
+        redirect("/dashboard");
+    }
     const transactions = [...data.payer_transactions, ...data.recipent_transactions]
     // console.log(data);
     const IS_ORG: boolean = data.role === "ORGANIZATION";
