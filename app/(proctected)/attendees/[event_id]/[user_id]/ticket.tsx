@@ -12,16 +12,35 @@ import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
 import { markAttendence } from "@/lib/services/events/markAttendance";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import dayjs from "dayjs";
-export const Ticket = async ({ event_id, registerer_id }: { event_id: string, registerer_id: string }) => {
-    const { data: registrant } = await getRegistrantById({ event_id, user_id: registerer_id });
-    const { getUser } = getKindeServerSession()
+export const Ticket = async ({
+    event_id,
+    registerer_id,
+}: {
+    event_id: string;
+    registerer_id: string;
+}) => {
+    const { data: registrant } = await getRegistrantById({
+        event_id,
+        user_id: registerer_id,
+    });
+    const { getUser } = getKindeServerSession();
     const Currentuser = await getUser();
-    const { data: orgnanizingOrg } = await getEventOrganizer({ event_id, org_id: Currentuser?.id as string })
+    const { data: orgnanizingOrg } = await getEventOrganizer({
+        event_id,
+        org_id: Currentuser?.id as string,
+    });
     let IS_ATTENDEE = false;
-    const { success, data: IsAttendeeAlready } = await getAttendeeById({ event_id, user_id: registerer_id })
+    const { success, data: IsAttendeeAlready } = await getAttendeeById({
+        event_id,
+        user_id: registerer_id,
+    });
     let IS_EVENT_OVER = false;
-    const isPresentDateAfterEventEndDate = dayjs().isAfter(dayjs(registrant.event.end_date));
-    const isPresentDateAfterStartDate = dayjs().isAfter(dayjs(registrant.event.start_date));
+    const isPresentDateAfterEventEndDate = dayjs().isAfter(
+        dayjs(registrant.event.end_date)
+    );
+    const isPresentDateAfterStartDate = dayjs().isAfter(
+        dayjs(registrant.event.start_date)
+    );
     if (isPresentDateAfterEventEndDate) IS_EVENT_OVER = true;
 
     if (IsAttendeeAlready == null) {
@@ -33,36 +52,47 @@ export const Ticket = async ({ event_id, registerer_id }: { event_id: string, re
         IS_ATTENDEE = true;
     }
 
-
     return (
-        <Card className="p-4 w-1/2 min-w-fit flex items-center gap-4 relative overflow-hidden">
-            <div className="w-[200px] h-[200px] bg-red-300"></div>
+        <Card className="p-4 w-1/2 min-w-fit flex items-center gap-4 bg-gradient-to-r from-[#d4fc79] to-[#96e6a1] relative overflow-hidden">
+            <div className="w-[200px] h-[200px] bg-accent rounded-md"></div>
             <CardContent className="p-0 w-fit">
                 <CardTitle className="w-[425px] flex items-center justify-between">
                     {registrant.user.first_name}'s ticket
-                    <Badge className="bg-primary/40 text-foreground font-medium tracking-wide">
+                    <Badge className="bg-accent text-foreground font-medium tracking-wide">
                         {IS_ATTENDEE ? "Attendee" : "Registered"}
                     </Badge>
                 </CardTitle>
-                <CardDescription className="*:font-medium pb-4 max-w-[30rem]">
-                    <div className="text-foreground text-base">
+                <CardDescription className="*:font-medium *:text-foreground pb-4 max-w-[30rem]">
+                    <div className="text-base">
                         {registrant.event.event_name}
                     </div>
-                    <span className="w-[425px] text-pretty h-[20px] truncate text-sm">
+                    <span className="w-[425px] h-[20px] line-clamp-1 text-sm">
                         {registrant.event.event_description}
                     </span>
                 </CardDescription>
                 <div className="*:text-sm *:font-medium flex flex-col">
                     <span>Mode: {registrant.event.mode}</span>
-                    <span>Location: {registrant.event.city},{registrant.event.country}</span>
-                    <span>Date: {dayjs(registrant.event.start_date?.toDateString()).format('DD/MM/YYYY')} - {dayjs(registrant.event.end_date?.toDateString()).format('DD/MM/YYYY')}</span>
+                    <span>
+                        Location: {registrant.event.city},
+                        {registrant.event.country}
+                    </span>
+                    <span>
+                        Date:{" "}
+                        {dayjs(
+                            registrant.event.start_date?.toDateString()
+                        ).format("DD/MM/YYYY")}{" "}
+                        -{" "}
+                        {dayjs(
+                            registrant.event.end_date?.toDateString()
+                        ).format("DD/MM/YYYY")}
+                    </span>
                 </div>
             </CardContent>
-            <div className="absolute top-0 right-0 rotate-90 h-full text-2xl text-muted-foreground font-semibold opacity-25 tracking-wide">
+            <div className="absolute top-0 right-0 rotate-90 h-full text-2xl text-card font-semibold opacity-50 tracking-wide">
                 <span>Genekriti · Genekriti</span>
             </div>
         </Card>
     );
 };
 
-// 
+//

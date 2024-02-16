@@ -11,14 +11,14 @@ export const dynamic = "force-dynamic";
 export default async function Page() {
     const response = await getAllEvents();
     const user_id = JSON.parse(cookies().get("user")?.value!).id;
-    var { data } = await getOrgById({ org_id: user_id })
+    var { data } = await getOrgById({ org_id: user_id });
     let isUserOrg = false;
     if (data) {
         isUserOrg = true;
     }
     return (
         <main>
-            <div className="sticky top-[56px] left-0 bg-accent flex items-center justify-between w-full">
+            <div className="sticky top-[56px] left-0 bg-accent flex items-center justify-between w-full z-10">
                 <div className="text-4xl font-semibold">Events</div>
                 {isUserOrg && (
                     <Link
@@ -31,11 +31,9 @@ export default async function Page() {
                 )}
             </div>
             <SearchBar />
-            <div className="flex flex-wrap gap-10 px-4">
+            <div className="flex flex-wrap gap-10 px-4 pb-10">
                 {response.data?.reverse().map((event, index) => {
-                    return (
-                        <EventCard event={event} key={index} />
-                    )
+                    return <EventCard event={event} key={index} />;
                 })}
             </div>
         </main>

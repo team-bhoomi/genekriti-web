@@ -10,7 +10,7 @@ export const SearchBar = () => {
     const params = useSearchParams();
     const [search, setSearch] = useState(params.get("search") || "");
     return (
-        <div className="sticky top-[96px] left-0 bg-accent flex flex-col items-center gap-3 pt-4 pb-3">
+        <div className="sticky top-[96px] left-0 bg-accent flex flex-col items-center gap-3 pt-4 pb-3 z-10">
             <div className="flex w-full items-center">
                 <form
                     onSubmit={(e) => {
