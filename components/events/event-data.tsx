@@ -1,10 +1,15 @@
-import { ArrowLeftCircle, BadgeIndianRupee, Pencil, Trash2Icon } from "lucide-react";
+import {
+    ArrowLeftCircle,
+    BadgeIndianRupee,
+    Pencil,
+    Trash2Icon,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ScanQR } from "./scan-qr";
 import { Attendees } from "./attendees";
 import { EventRegistrants } from "./event-registrants";
-import { Event, Organization } from "@prisma/client"
+import { Event, Organization } from "@prisma/client";
 import dayjs from "dayjs";
 import { getEventOrganizer } from "@/lib/services/events/getEventOrganizer";
 import { getRegistrantById } from "@/lib/services/events/getRegistrantById";
@@ -24,23 +29,32 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 
-type EventDataType = Event & { organizer: { name: string } }
+type EventDataType = Event & { organizer: { name: string } };
 export const EventData = async ({ event }: { event: EventDataType }) => {
     let isOrganizingOrg = false;
     let eventOver = false;
     let isUserRegistered = false;
 
-    const { success, data: orgData } = await getEventOrganizer({ org_id: event.organizer_id, event_id: event.event_id })
+    const { success, data: orgData } = await getEventOrganizer({
+        org_id: event.organizer_id,
+        event_id: event.event_id,
+    });
 
-    const { getUser } = getKindeServerSession()
+    const { getUser } = getKindeServerSession();
     const user = await getUser();
 
-    orgData.organizer.org_id === user?.id ? isOrganizingOrg = true : isOrganizingOrg = false;
-    const isPresentDateAfterEventEndDate = dayjs().isAfter(dayjs(event.end_date));
+    orgData.organizer.org_id === user?.id
+        ? (isOrganizingOrg = true)
+        : (isOrganizingOrg = false);
+    const isPresentDateAfterEventEndDate = dayjs().isAfter(
+        dayjs(event.end_date)
+    );
     if (isPresentDateAfterEventEndDate) eventOver = true;
 
-
-    const { data: registrantData } = await getRegistrantById({ event_id: event.event_id, user_id: await getCurrentUserId() })
+    const { data: registrantData } = await getRegistrantById({
+        event_id: event.event_id,
+        user_id: await getCurrentUserId(),
+    });
 
     if (registrantData) isUserRegistered = true;
 
@@ -67,7 +81,9 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                     <div className="w-full bg-slate-700 rounded-xl h-[200px] flex items-center overflow-hidden">
                         <img src="/images/quiz-banner/quiz1-banner.jpg" />
                     </div>
-                    <div className="text-5xl font-semibold">{event.event_name}</div>
+                    <div className="text-5xl font-semibold">
+                        {event.event_name}
+                    </div>
                     <div className="text-muted-foreground font-medium">
                         {event.event_description}
                     </div>
@@ -77,7 +93,9 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         <div>
                             Organisers:{""}
                             {/* //@ts-ignore */}
-                            <span className="font-normal">{event.organizer.name}</span>
+                            <span className="font-normal">
+                                {event.organizer.name}
+                            </span>
                         </div>
                         <div>
                             Mode:{""}
@@ -98,26 +116,47 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                         <div>
                             Date:
                             <span className="font-normal">
-                                {dayjs(event.start_date?.toDateString()).format('DD/MM/YYYY')} - {dayjs(event.end_date?.toDateString()).format('DD/MM/YYYY')}
+                                {dayjs(event.start_date?.toDateString()).format(
+                                    "DD/MM/YYYY"
+                                )}{" "}
+                                -{" "}
+                                {dayjs(event.end_date?.toDateString()).format(
+                                    "DD/MM/YYYY"
+                                )}
                             </span>
                         </div>
                         <div>
                             Time:
                             <span className="font-normal">
-                                {`${event.start_date?.getHours()}:${event.start_date?.getMinutes()}`} - {`${event.end_date?.getHours()}:${event.start_date?.getMinutes()}`}
+                                {`${event.start_date?.getHours()}:${event.start_date?.getMinutes()}`}{" "}
+                                -{" "}
+                                {`${event.end_date?.getHours()}:${event.start_date?.getMinutes()}`}
                             </span>
                         </div>
                         <div>
                             Duration:
-                            <span className="font-normal">{Math.floor(dayjs(event.end_date).diff(dayjs(event.start_date), 'day', true))} {"days"}</span>
+                            <span className="font-normal">
+                                {Math.floor(
+                                    dayjs(event.end_date).diff(
+                                        dayjs(event.start_date),
+                                        "day",
+                                        true
+                                    )
+                                )}{" "}
+                                {"days"}
+                            </span>
                         </div>
                         <div>
                             Registered:
-                            <span className="font-normal">{event.registrants_count}</span>
+                            <span className="font-normal">
+                                {event.registrants_count}
+                            </span>
                         </div>
                         <div>
                             Attendees:
-                            <span className="font-normal">{event.attendees_count}</span>
+                            <span className="font-normal">
+                                {event.attendees_count}
+                            </span>
                         </div>
                         <div>
                             Reward Points:
@@ -130,11 +169,34 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                             <span>300</span>
                         </div>
                     </div>
+                    <div className="flex flex-col gap-2">
+                        {!isOrganizingOrg ? (
+                            eventOver ? (
+                                <div className="text-primary font-semibold text-xl">
+                                    {"The event is completed"}
+                                </div>
+                            ) : (
+                                !isUserRegistered && (
+                                    <EventRegisterButton
+                                        event_id={event.event_id}
+                                        user_id={user?.id as string}
+                                    />
+                                )
+                            )
+                        ) : null}
+                        {isOrganizingOrg
+                            ? eventOver
+                                ? "Event completed successfully"
+                                : "You are hosting this event"
+                            : null}
 
-                    {!isOrganizingOrg ? (eventOver ? <div>{"The event is completed"}</div> : !isUserRegistered && <EventRegisterButton event_id={event.event_id} user_id={user?.id as string} />) : null}
-                    {isOrganizingOrg ? (eventOver ? "Event completed successfully" : "You are hosting this event") : null}
-
-                    {isUserRegistered && !isOrganizingOrg && <ShowPassButton event_id={event.event_id} user_id={user?.id as string} />}
+                        {isUserRegistered && !isOrganizingOrg && (
+                            <ShowPassButton
+                                event_id={event.event_id}
+                                user_id={user?.id as string}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
             {isOrganizingOrg && <EventRegistrants event_id={event.event_id} />}
@@ -143,10 +205,8 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
     );
 };
 
-
 const DeleteEventButton = ({ event_id }: { event_id: string }) => {
     return (
-
         <Dialog>
             <DialogTrigger asChild>
                 <Button
@@ -167,13 +227,16 @@ const DeleteEventButton = ({ event_id }: { event_id: string }) => {
                 </DialogHeader>
                 <DialogFooter>
                     <form action={deleteEventAction}>
-                        <input name="event_id" defaultValue={event_id} className="hidden" />
+                        <input
+                            name="event_id"
+                            defaultValue={event_id}
+                            className="hidden"
+                        />
 
                         <Button variant={"destructive"}>Delete</Button>
                     </form>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-
-    )
-}
+    );
+};
