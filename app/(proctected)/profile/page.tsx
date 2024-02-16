@@ -7,10 +7,10 @@ export default async function Page() {
     const { getUser } = getKindeServerSession()
     const user = await getUser();
     const data = await getUserById({ id: user?.id as string })
-    if (!data) {
-        redirect("/");
-    }
-    // console.log(data);
+    // if (!data) {
+    //     redirect("/");
+    // }
+    console.log(data);
 
 
     return (
@@ -21,19 +21,19 @@ export default async function Page() {
 
             <div className="flex items-center gap-5">
                 <div className="w-20 h-20 rounded-full bg-red-500 flex items-center overflow-hidden">
-                    <img src={data.profile_image!} alt="Profile image" />
+                    <img src={data?.profile_image!} alt="Profile image" />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <div className="text-xl font-semibold">{`${data.first_name} ${data.last_name}`}</div>
-                    <div>{data.email}</div>
+                    <div className="text-xl font-semibold">{`${data?.first_name} ${data?.last_name}`}</div>
+                    <div>{data?.email}</div>
                     <div className="text-sm text-muted-foreground font-medium">
-                        {data.role}
+                        {data?.role}
                     </div>
                 </div>
             </div>
             <div className="border-b-2 border-slate-300" />
             <div className="text-lg font-medium">Account History</div>
-            <ProfileHistory data={data} />
+            {/* {data?.attendees.length === 0 && data?.conversations.length === 0 && data?.payer_transactions?.length === 0 && data?.recipent_transactions.length == 0 && data?.seller.length == 0 ? "No data yet please do something on the website" : <ProfileHistory data={data} />} */}
         </main>
     );
 }
