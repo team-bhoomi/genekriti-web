@@ -26,7 +26,7 @@ export const OrgOnboardForm = ({ user }: { user: KindeUser }) => {
     const router = useRouter();
     const handleFormSubmit = async (e: any) => {
         e.preventDefault();
-        const BASE_API_URL = process.env.BASE_API_URL
+        const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
         const response = await fetch(`${BASE_API_URL}/org`, {
             method: "POST",
             body: JSON.stringify({
