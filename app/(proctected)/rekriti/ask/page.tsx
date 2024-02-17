@@ -15,10 +15,10 @@ export default function Page() {
                     </div>
 
                     <div className="flex flex-wrap gap-10">
+                        {/* <VideoCard />
                         <VideoCard />
                         <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
+                        <VideoCard /> */}
                     </div>
                 </div>
             </div>

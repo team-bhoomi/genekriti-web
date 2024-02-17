@@ -157,7 +157,7 @@ export const AddEvent = ({ org_id }: { org_id: string }) => {
                 </div>
 
                 <Button type="submit" className="!w-fit mt-4">{pending ? "LOADING..." : "Publish event"}</Button>
-                {pending && <div className="text-red-400 text-2xl">HELLLSOSOOSOOSOSOSOOSOSOSOSOS</div>}
+                {/* {pending && <div className="text-red-400 text-2xl">HELLLSOSOOSOOSOSOSOOSOSOSOSOS</div>} */}
             </div>
         </form>
     );

@@ -13,9 +13,8 @@ export const LayoutSetter = ({
     const [clicked, setClicked] = useState(false);
     return (
         <main
-            className={`min-h-screen w-full bg-accent ${
-                clicked ? "pl-[190px]" : "pl-[75px]"
-            }`}
+            className={`min-h-screen w-full bg-accent ${clicked ? "pl-[190px]" : "pl-[75px]"
+                }`}
         >
             {/* <CoinBar /> */}
             {coinChildren}

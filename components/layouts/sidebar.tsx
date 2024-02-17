@@ -7,7 +7,7 @@ import {
 } from "../ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { usePathname } from "next/navigation";
 import { featureMenu } from "@/lib/data/features";
 import { ListMenu } from "./list-menu";
@@ -15,13 +15,13 @@ import { ListMenu } from "./list-menu";
 export const SideBar = ({
     clicked,
     setClicked,
+
 }: {
     clicked: boolean;
     setClicked: Dispatch<SetStateAction<boolean>>;
 }) => {
     const router = usePathname();
     var i = router.indexOf("/", 1);
-    console.log();
     return (
         <NavigationMenu>
             <div className="flex items-center justify-center w-full px-3">
@@ -40,16 +40,6 @@ export const SideBar = ({
                         <X width={18} height={18} strokeWidth={3} />
                     )}
                 </button>
-            </div>
-
-            <div className="flex items-center justify-center w-full px-2">
-                <div className="min-w-9 h-9 rounded-full bg-red-300"></div>
-                {clicked && (
-                    <div className="flex flex-col justify-center w-full ml-[10px]">
-                        <div className="font-bold">John</div>
-                        <span className="text-xs font-medium">Individual</span>
-                    </div>
-                )}
             </div>
 
             <NavigationMenuList>

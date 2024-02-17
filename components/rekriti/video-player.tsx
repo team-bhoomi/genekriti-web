@@ -1,10 +1,10 @@
 "use client";
 import ReactPlayer from "react-player";
 
-export const VideoPlayer = () => {
+export const VideoPlayer = ({ video_url }: { video_url: string }) => {
     //video path
-    let videosrc =
-        "https://player.vimeo.com/external/311144302.sd.mp4?s=7f608dbc4a9318433d93b9d121707f3f15b1eba3&profile_id=164&oauth2_token_id=57447761";
+    let videosrc = video_url || "https://player.vimeo.com/external/311144302.sd.mp4?s=7f608dbc4a9318433d93b9d121707f3f15b1eba3&profile_id=164&oauth2_token_id=57447761";
+
 
     return (
         <div className="w-full h-[450px] overflow-hidden flex items-center justify-center">
