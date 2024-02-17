@@ -6,28 +6,34 @@ export const isQuizAttempted = async ({
 }: {
   user_id: string;
   group: number;
-}): Promise<{ isAttempted: boolean; error: unknown }> => {
+}): Promise<{ data: any; isAttempted: boolean; error: unknown }> => {
   try {
     const response = await prisma.question_responses.findMany({
       where: {
         user_id,
         group,
       },
+      include: {
+        questionData: true,
+      },
     });
 
     if (response.length != 5) {
       return {
+        data: null,
         isAttempted: false,
         error: "All questions not attempted",
       };
     }
     return {
+      data: response,
       isAttempted: true,
       error: null,
     };
   } catch (error) {
     console.log(error);
     return {
+      data: null,
       isAttempted: false,
       error,
     };
