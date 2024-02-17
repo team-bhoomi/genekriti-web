@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 
-export const VideoCard = () => {
+export const VideoCard = ({ video }: { video: any }) => {
     return (
         <Link href={`/rekriti/video/${"abc"}`}>
             <Card className="bg-background overflow-hidden">
                 <div className="w-[300px] h-[190px] flex items-center justify-center overflow-hidden">
                     <img
-                        src="/images/quiz-banner/quiz7-banner.jpg"
+                        src={video.thumbnail_img_url ? video.thumbnail_img_url : "/images/quiz-banner/quiz7-banner.jpg"}
                         alt="video-banner"
                         className="h-full"
                         loading="lazy"
@@ -26,11 +26,11 @@ export const VideoCard = () => {
                     </div>
                     <CardContent className="space-y-0 gap-0 p-2">
                         <CardTitle className="text-lg p-0 font-medium w-[210px] line-clamp-2 leading-[22px]">
-                            Create new landscape art with waste water colors
+                            {video.title}
                         </CardTitle>
                         <CardDescription className="flex flex-col">
-                            <span>John Doe</span>
-                            <span>1K views · 1 day ago</span>
+                            <span>{`${video.user.first_name} ${video.user.last_name}`}</span>
+                            <span>{video.view_count} views</span>
                         </CardDescription>
                     </CardContent>
                 </div>

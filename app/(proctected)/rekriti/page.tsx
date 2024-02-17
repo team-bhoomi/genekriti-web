@@ -1,7 +1,11 @@
 import { VideoCard } from "@/components/rekriti/video-card";
 import { SearchBar } from "./search-bar";
+import { getAllVideos } from "@/lib/services/videos/getAllVidoes";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export default function Page() {
+export default async function Page() {
+    const videos = await getAllVideos();
     return (
         <main className="w-full min-h-screen pr-4 flex flex-col">
             <div className="sticky top-[56px] left-0 bg-accent flex items-center justify-between w-full text-4xl font-semibold">
@@ -15,15 +19,18 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-3 p-4 pb-10">
                 <div className="text-3xl font-semibold">Videos</div>
-                <div className="flex flex-wrap items-center justify-between gap-10">
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
+                <div className="flex flex-wrap items-center justify-start gap-10">
+                    {videos?.data ? videos.data.map((video, index) => {
+                        return (
+                            <VideoCard video={video} />
+                        )
+                    }) :
+                        <div>
+                            <Link href={"/rekriti/upload"}>
+                                <Button>Upload Video</Button>
+                            </Link>
+                        </div>
+                    }
                 </div>
             </div>
         </main>

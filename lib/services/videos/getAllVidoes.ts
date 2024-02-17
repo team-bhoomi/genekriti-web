@@ -2,14 +2,21 @@ import { serviceMessages } from "@/lib/constants/serviceMessage";
 import { prisma } from "@/lib/prisma";
 import { Videos } from "@prisma/client";
 
-export const getAllUsers = async (): Promise<{
+export const getAllVideos = async (): Promise<{
   data: Videos[] | null;
   success: boolean;
   error: unknown;
   message?: string;
 }> => {
   try {
-    const response = await prisma.videos.findMany();
+    const response = await prisma.videos.findMany({
+      include: {
+        user: true,
+        comments: true,
+        likes: true,
+        views: true,
+      },
+    });
     return {
       data: response,
       success: true,

@@ -77,7 +77,7 @@ export const AddVideo = ({ user_id }: { user_id: string }) => {
         formData.append("creator_id", user_id);
         formData.append("title", title);
         formData.append("description", description);
-        formData.append("thumbnail_url", thumbailUrl);
+        formData.append("thumbnail_img_url", thumbailUrl);
         formData.append("video_url", videoUrl);
         formData.append("categories", JSON.stringify(prodCat));
 
