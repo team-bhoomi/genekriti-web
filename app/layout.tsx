@@ -1,3 +1,4 @@
+import { EdgeStoreProvider } from '../lib/edgestore';
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -19,7 +20,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={poppins.className}>{children}</body>
+            <body className={poppins.className}>
+                <EdgeStoreProvider>
+                    {children}
+                </EdgeStoreProvider>
+            </body>
         </html>
     );
 }
