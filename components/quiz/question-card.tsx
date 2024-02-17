@@ -78,7 +78,7 @@ export const QuestionCard = ({ question, currentQuestionNumber }: { question: an
                 }
                 {
                     isSelected.opt_2 ? <QuestionOption is_selected={true} selected={isSelected}
-                        opt={question.opt_2} i={1}
+                        opt={question.opt_2} i={2}
                         onClick={() => {
                             setSelectedAnswer(question.opt_2);
                             setIsSelected({
@@ -89,7 +89,7 @@ export const QuestionCard = ({ question, currentQuestionNumber }: { question: an
                             }
                             )
                         }} /> : <QuestionOption is_selected={false} selected={isSelected}
-                            opt={question.opt_2} i={1}
+                            opt={question.opt_2} i={2}
                             onClick={() => {
                                 setSelectedAnswer(question.opt_2);
                                 setIsSelected({
@@ -103,7 +103,7 @@ export const QuestionCard = ({ question, currentQuestionNumber }: { question: an
                 }
                 {
                     isSelected.opt_3 ? <QuestionOption is_selected={true} selected={isSelected}
-                        opt={question.opt_3} i={1}
+                        opt={question.opt_3} i={3}
                         onClick={() => {
                             setSelectedAnswer(question.opt_3);
                             setIsSelected({
@@ -114,7 +114,7 @@ export const QuestionCard = ({ question, currentQuestionNumber }: { question: an
                             }
                             )
                         }} /> : <QuestionOption is_selected={false} selected={isSelected}
-                            opt={question.opt_3} i={1}
+                            opt={question.opt_3} i={3}
                             onClick={() => {
                                 setSelectedAnswer(question.opt_3);
                                 setIsSelected({
@@ -128,7 +128,7 @@ export const QuestionCard = ({ question, currentQuestionNumber }: { question: an
                 }
                 {
                     isSelected.opt_4 ? <QuestionOption is_selected={true} selected={isSelected}
-                        opt={question.opt_4} i={1}
+                        opt={question.opt_4} i={4}
                         onClick={() => {
                             setSelectedAnswer(question.opt_4);
                             setIsSelected({
@@ -139,7 +139,7 @@ export const QuestionCard = ({ question, currentQuestionNumber }: { question: an
                             }
                             )
                         }} /> : <QuestionOption is_selected={false} selected={isSelected}
-                            opt={question.opt_1} i={1}
+                            opt={question.opt_1} i={4}
                             onClick={() => {
                                 setSelectedAnswer(question.opt_1);
                                 setIsSelected({

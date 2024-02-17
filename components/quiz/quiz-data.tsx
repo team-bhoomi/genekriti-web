@@ -14,7 +14,6 @@ export const QuizData = async ({
     ques_id: string;
     quiz_no: string;
 }) => {
-    var quesAnswered = false;
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
@@ -23,13 +22,15 @@ export const QuizData = async ({
         user_id: user?.id as string,
     });
 
-    let IS_QUIZ_ATTEMPTED = response?.questions_attempted.length != 0;
+    let IS_QUESTION_ATTEMPTED = response?.questions_attempted.length != 0;
 
     let IS_CORRECT_ANSWER = false;
 
-    if (IS_QUIZ_ATTEMPTED) {
+    if (IS_QUESTION_ATTEMPTED) {
         IS_CORRECT_ANSWER = response?.questions_attempted[0].is_correct!;
     }
+    let IS_QUIZ_COMPLETED = false;
+
 
     let prevQuestionId = "/quiz";
     let nextQuestionId = "";
@@ -40,17 +41,17 @@ export const QuizData = async ({
             if (i != 0) {
                 currentQuestion = i + 1;
                 prevQuestionId = questions[i - 1].question_id;
+                currentQuestionNumber = i + 1;
             }
-            nextQuestionId = questions[i + 1].question_id;
+            console.log(questions[i].is_attempted);
+            if (i < 4) {
+                nextQuestionId = questions[i + 1].question_id;
+            } else {
+                nextQuestionId = "/last";
+            }
             currentQuestion = questions[i];
         }
     }
-    // console.log(prevQuestionId);
-    // console.log(ques_id);
-    // console.log(nextQuestionId);
-    // console.log(currentQuestion);
-
-    // console.log(response?.questions_attempted);
 
     return (
         <div className="w-full h-full fixed top-0 left-0 z-20 text-white flex items-center justify-center">
@@ -79,19 +80,25 @@ export const QuizData = async ({
                     ) : (
                         <Link href={`/quiz/`}>Back</Link>
                     )}
-                    {quesAnswered && (
-                        <div className="*:font-semibold *:text-xl">
-                            {IS_CORRECT_ANSWER ? (
-                                <span className="text-green-500">
-                                    Correct Answer !
-                                </span>
-                            ) : (
-                                <span className="text-red-500">
-                                    Wrong Answer
-                                </span>
-                            )}
-                        </div>
-                    )}
+                    <div className="flex flex-col justify-center items-center gap-2">
+                        {IS_QUESTION_ATTEMPTED && (
+                            <div className="*:font-semibold *:text-xl">
+                                {IS_CORRECT_ANSWER ? (
+                                    <span className="text-green-500">
+                                        Correct Answer !
+                                    </span>
+                                ) : (
+                                    <span className="text-red-500">
+                                        Wrong Answer
+                                    </span>
+                                )}
+                            </div>
+                        )}
+                        {
+                            IS_QUESTION_ATTEMPTED ?
+                                <div className="p-6 text-center font-semibold text-xl text-green-500">Correct answer : {currentQuestion.answer}</div> : null
+                        }
+                    </div>
                     <input
                         name="question_id"
                         className="hidden"
@@ -112,7 +119,7 @@ export const QuizData = async ({
                         className="hidden"
                         defaultValue={currentQuestion.group}
                     />
-                    {!IS_QUIZ_ATTEMPTED ? (
+                    {!IS_QUESTION_ATTEMPTED ? (
                         <Button
                             type="submit"
                             variant={"outline"}
@@ -121,8 +128,10 @@ export const QuizData = async ({
                             Submit
                         </Button>
                     ) : (
-                        (IS_CORRECT_ANSWER || IS_QUIZ_ATTEMPTED) && (
-                            <Link href={`/quiz/${quiz_no}/${nextQuestionId}`}>
+                        (IS_CORRECT_ANSWER || IS_QUESTION_ATTEMPTED) && (
+                            nextQuestionId == "/last" ? <Link href={`/quiz/`}>
+                                Next
+                            </Link> : <Link href={`/quiz/${quiz_no}/${nextQuestionId}`}>
                                 Next
                             </Link>
                         )
