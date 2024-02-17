@@ -4,7 +4,7 @@ import { Badge } from "../ui/badge";
 
 type eventStatus = "Not Started" | "Ongoing" | "Completed"
 export const EventHistoryCard = ({ event }: { event: any }) => {
-
+    // console.log(event);
     const isPresentDayBefore = dayjs().isBefore(dayjs(event.start_date))
     const isPresentDayAfter = dayjs().isAfter(dayjs(event.end_date));
     let STATUS: eventStatus = "Not Started";
