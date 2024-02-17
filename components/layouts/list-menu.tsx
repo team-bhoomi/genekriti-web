@@ -36,7 +36,7 @@ export const ListMenu = ({
             >
                 <TooltipProvider>
                     <Tooltip>
-                        <TooltipTrigger className="w-full h-full pl-2 pr-4 py-2 z-10">
+                        <TooltipTrigger className="w-full h-full flex items-center gap-3 pl-2 pr-4 py-2 z-10">
                             <Icon peerClassName="group-hover:fill-foreground" />
                             {clicked && name}
                         </TooltipTrigger>
@@ -55,10 +55,10 @@ export const ListMenu = ({
                         <Dialog>
                             <TooltipTrigger className="w-full h-full pl-2 pr-4 py-2 z-10">
                                 <DialogTrigger asChild>
-                                    <button className="group font-medium flex items-center gap-3 focus:bg-transparent">
-                                        <Icon peerClassName="group-hover:fill-foreground" />
+                                    <div className="group font-medium flex items-center gap-3 focus:bg-transparent">
+                                        <Icon peerClassName="group-hover:fill-foreground border-2 border-black" />
                                         {clicked && name}
-                                    </button>
+                                    </div>
                                 </DialogTrigger>
                             </TooltipTrigger>
                             {!clicked && (
