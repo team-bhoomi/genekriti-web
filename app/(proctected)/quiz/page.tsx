@@ -3,6 +3,7 @@ import { SearchBar } from "./search-bar";
 import { quizBanners } from "@/lib/data/quiz-banner";
 import { getAllQuestions } from "@/lib/services/quiz/getAllQuestions";
 import { Questions } from "@prisma/client";
+import { isQuizAttempted } from "@/lib/services/quiz/isQuizAttempted";
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
@@ -39,7 +40,6 @@ export default async function Page() {
     quizes.push(quiz_9!);
     // @ts-ignore
     quizes.push(quiz_10!);
-
     return (
         <main className="w-full min-h-screen pr-4 flex flex-col">
             <div className="sticky top-[56px] left-0 bg-accent flex items-center justify-between w-full text-4xl font-semibold">
@@ -53,7 +53,7 @@ export default async function Page() {
             <div className="flex flex-wrap gap-10 px-4 pb-10">
                 {quizes.map((quiz, i) => {
                     return (
-                        <QuizCard quiz={quiz} key={i} img_url={`/images/quiz-banner/quiz${i + 1}-banner.jpg`} />
+                        <QuizCard quiz_no={i + 1} quiz={quiz} key={i} img_url={`/images/quiz-banner/quiz${i + 1}-banner.jpg`} />
                     )
                 })}
             </div>

@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { isQuestionAttempted } from "@/lib/services/quiz/isQuestionAttempted";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { submitAnswerAction } from "@/lib/actions/quiz/submitAnswerAction";
+import { redirect } from "next/navigation";
 
 export const QuizData = async ({
     questions,
@@ -124,6 +125,7 @@ export const QuizData = async ({
                             type="submit"
                             variant={"outline"}
                             className="text-black"
+
                         >
                             Submit
                         </Button>
