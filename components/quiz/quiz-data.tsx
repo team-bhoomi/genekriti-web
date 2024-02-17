@@ -131,7 +131,7 @@ export const QuizData = async ({
                         </Button>
                     ) : (
                         (IS_CORRECT_ANSWER || IS_QUESTION_ATTEMPTED) && (
-                            nextQuestionId == "/last" ? <Link href={`/quiz/`}>
+                            nextQuestionId == "/last" ? <Link href={`/quiz/${quiz_no}`}>
                                 Next
                             </Link> : <Link href={`/quiz/${quiz_no}/${nextQuestionId}`}>
                                 Next
