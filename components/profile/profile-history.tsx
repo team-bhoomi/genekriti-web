@@ -22,6 +22,7 @@ import { getAllAttendees } from "@/lib/services/events/getAllAttendees";
 import { getAllEventsAttendedByUser } from "@/lib/services/events/getAllEventsAttendedByUser";
 import { EventUserHistoryCard } from "./event-user-history-card";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export async function ProfileHistory({ data }: { data: any }) {
     // TODO hanlde cases when user has no data on website
@@ -62,13 +63,21 @@ export async function ProfileHistory({ data }: { data: any }) {
                             return (
                                 <EventHistoryCard event={event} key={i} />
                             )
-                        }) : null}
+                        }) : <div>
+                            <Link href={"/events/create"}>
+                                <Button>Create Events</Button>
+                            </Link>
+                        </div>}
 
                         {!IS_ORG && userEventDetails ? userEventDetails.map((event: any, i: number) => {
                             return (
                                 <EventUserHistoryCard event={event} key={i} />
                             )
-                        }) : null}
+                        }) : <div>
+                            <Link href={"/events"}>
+                                <Button>Explore Events</Button>
+                            </Link>
+                        </div>}
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -81,19 +90,27 @@ export async function ProfileHistory({ data }: { data: any }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        {data.seller ? data.seller.map((product: any, i: number) => {
+                        {data.seller.length != 0 ? data.seller.map((product: any, i: number) => {
                             return (
                                 <ProductHistoryCard key={i} product={product} />
 
                             )
-                        }) : "You have not sold any products yet"}
+                        }) : <div>
+                            <Link href={"/market-place/sell"}>
+                                <Button>Sell Product</Button>
+                            </Link>
+                        </div>}
 
-                        {data.buyer ? data.buyer.map((product: any, i: number) => {
+                        {data.buyer.length != 0 ? data.buyer.map((product: any, i: number) => {
                             return (
                                 <ProductPurchaseHistoryCard product={product} key={i} />
 
                             )
-                        }) : "You have not bought any products yet"}
+                        }) : <div>
+                            <Link href={"/market-place"}>
+                                <Button>Explore Products</Button>
+                            </Link>
+                        </div>}
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -107,7 +124,7 @@ export async function ProfileHistory({ data }: { data: any }) {
                     </CardHeader>
                     <CardContent className="space-y-2">
                         {
-                            transactions ? transactions.map((transaction: any, i: number) => {
+                            transactions.length != 0 ? transactions.map((transaction: any, i: number) => {
                                 return (
                                     <TransactionHistoryCard transaction={transaction} key={i} />
                                 )
