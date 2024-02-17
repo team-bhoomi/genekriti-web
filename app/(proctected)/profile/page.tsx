@@ -7,7 +7,7 @@ export default async function Page() {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
     const data = await getUserById({ id: user?.id as string });
-    console.log(data);
+    // console.log(data);
 
     return (
         <main className="w-full min-h-screen pr-4 pb-10 flex flex-col gap-5">
