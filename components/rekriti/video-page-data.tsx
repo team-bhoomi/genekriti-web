@@ -11,7 +11,7 @@ export const VideoPageData = ({ video }: { video: any }) => {
                 <div className="text-lg font-semibold">Suggested videos</div>
                 <SuggestedVideos />
                 <div className="text-lg font-semibold">Comments</div>
-                <CommentSection />
+                <CommentSection video={video} />
             </div>
         </div>
     );
