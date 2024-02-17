@@ -5,11 +5,11 @@ export const VideoCard = () => {
     return (
         <Link href={`/rekriti/video/${"abc"}`}>
             <Card className="bg-background overflow-hidden">
-                <div className="w-[350px] h-[190px] flex items-center justify-center overflow-hidden">
+                <div className="w-[300px] h-[190px] flex items-center justify-center overflow-hidden">
                     <img
                         src="/images/quiz-banner/quiz7-banner.jpg"
                         alt="video-banner"
-                        className="w-full"
+                        className="h-full"
                         loading="lazy"
                         fetchPriority="high"
                     />
@@ -25,7 +25,7 @@ export const VideoCard = () => {
                         />
                     </div>
                     <CardContent className="space-y-0 gap-0 p-2">
-                        <CardTitle className="text-lg p-0 font-medium w-[260px] line-clamp-2 leading-[22px]">
+                        <CardTitle className="text-lg p-0 font-medium w-[210px] line-clamp-2 leading-[22px]">
                             Create new landscape art with waste water colors
                         </CardTitle>
                         <CardDescription className="flex flex-col">
