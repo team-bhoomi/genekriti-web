@@ -9,7 +9,7 @@ export const updateVideoById = async ({
   description,
   thumbnail_img_url,
   video_url,
-  category,
+  categories,
 }: Pick<
   Videos,
   | "video_id"
@@ -18,7 +18,7 @@ export const updateVideoById = async ({
   | "description"
   | "thumbnail_img_url"
   | "video_url"
-  | "category"
+  | "categories"
 >): Promise<{
   data: Videos | null;
   success: boolean;
@@ -32,7 +32,7 @@ export const updateVideoById = async ({
         description,
         thumbnail_img_url,
         video_url,
-        category,
+        categories,
       },
       where: {
         video_id,
