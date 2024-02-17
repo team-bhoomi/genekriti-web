@@ -30,7 +30,7 @@ export default async function Page() {
     <main className="w-full min-h-screen pt-2 pr-4 flex flex-col gap-6">
       <GetCoinsBar />
       <div className="flex flex-col items-center gap-4 w-full">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-start justify-between w-full">
           <div className="flex flex-col justify-start items-start gap-2">
             <span>Catch up all the latest videos</span>
             <div className="flex justify-start items-center gap-4 flex-wrap">
@@ -48,7 +48,7 @@ export default async function Page() {
         <div className="w-full border-b-[1px] border-gray-500" />
       </div>
       <div className="flex flex-col items-center gap-4 w-full">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-start justify-between w-full">
           <div className="flex flex-col justify-start items-start gap-2">
             <span>Be a attendee join amazing events</span>
             <div className="flex justify-start items-center gap-4 flex-wrap">
@@ -66,7 +66,7 @@ export default async function Page() {
         <div className="w-full border-b-[1px] border-gray-500" />
       </div>
       <div className="flex flex-col items-center gap-4 w-full">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-start justify-between w-full">
           <div className="flex flex-col justify-start items-start gap-2">
             <span>Explore the latest products in marketplace</span>
             <div className="flex justify-start items-center gap-4 flex-wrap">
