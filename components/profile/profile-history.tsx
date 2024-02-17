@@ -62,13 +62,13 @@ export async function ProfileHistory({ data }: { data: any }) {
                             return (
                                 <EventHistoryCard event={event} key={i} />
                             )
-                        }) : null}
+                        }) : "No events created yet"}
 
                         {!IS_ORG && userEventDetails ? userEventDetails.map((event: any, i: number) => {
                             return (
                                 <EventUserHistoryCard event={event} key={i} />
                             )
-                        }) : null}
+                        }) : "No events attended yet"}
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -81,7 +81,7 @@ export async function ProfileHistory({ data }: { data: any }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        {data.seller ? data.seller.map((product: any, i: number) => {
+                        {data.seller.length != 0 ? data.seller.map((product: any, i: number) => {
                             return (
                                 <ProductHistoryCard key={i} product={product} />
 
@@ -107,7 +107,7 @@ export async function ProfileHistory({ data }: { data: any }) {
                     </CardHeader>
                     <CardContent className="space-y-2">
                         {
-                            transactions ? transactions.map((transaction: any, i: number) => {
+                            transactions.length != 0 ? transactions.map((transaction: any, i: number) => {
                                 return (
                                     <TransactionHistoryCard transaction={transaction} key={i} />
                                 )
