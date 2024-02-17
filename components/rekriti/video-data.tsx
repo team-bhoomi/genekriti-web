@@ -4,9 +4,14 @@ import { Label } from "../ui/label";
 import { Badge } from "../ui/badge";
 import dayjs from "dayjs";
 import { convertCategoryToLowerCase } from "@/lib/constants/convertCategoryToLowerCase";
+import { Button } from "../ui/button";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { likeVideoAction } from "@/lib/actions/likes/likeVideoAction";
 
-export const VideoData = ({ video }: { video: any }) => {
 
+export const VideoData = async ({ video }: { video: any }) => {
+    const { getUser } = getKindeServerSession()
+    const user = await getUser();
     return (
         <div className="w-full flex flex-col gap-2">
             <VideoPlayer video_url={video.video_url} />
@@ -15,19 +20,25 @@ export const VideoData = ({ video }: { video: any }) => {
                     <div className="pb-1 font-semibold text-muted-foreground">
                         {video.view_count} views · {video.like_count} likes · {video.comment_count} comments
                     </div>
-                    <Label>
-                        <input
-                            type="checkbox"
-                            value={"liked"}
-                            className="hidden peer"
-                        />
-                        <ThumbsUp
-                            width={20}
-                            height={20}
-                            strokeWidth={1.5}
-                            className="transition-colors hover:cursor-pointer hover:fill-red-400 peer-checked:fill-red-400"
-                        />
-                    </Label>
+                    <form action={likeVideoAction}>
+                        {/* <input
+                                type="checkbox"
+                                value={"liked"}
+                                className="hidden peer"
+                            /> */}
+                        <button>
+                            <input className="hidden" name="user_id" defaultValue={user?.id} />
+                            <input className="hidden" name="video_id" defaultValue={video.video_id} />
+                            <ThumbsUp
+                                type="submit"
+                                width={20}
+                                height={20}
+                                strokeWidth={1.5}
+                                className="transition-colors hover:cursor-pointer hover:fill-red-400 peer-checked:fill-red-400"
+                            />
+                        </button>
+
+                    </form>
                 </div>
                 <div className="text-xs font-medium text-muted-foreground pb-1">
                     Uploaded Date: {dayjs(video.created_at).format("DD/MM/YYYY")}
