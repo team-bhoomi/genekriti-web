@@ -24,6 +24,7 @@ export const submitCorrectAnswer = async ({
         question_id,
         is_correct: true,
         group,
+        is_attempted: true,
       },
       include: {
         user: {

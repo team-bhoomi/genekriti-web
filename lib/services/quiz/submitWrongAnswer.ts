@@ -23,6 +23,7 @@ export const submitWrongAnswer = async ({
         user_answer,
         question_id,
         is_correct: false,
+        is_attempted: true,
         group,
       },
     });
