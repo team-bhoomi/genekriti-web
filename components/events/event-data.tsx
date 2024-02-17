@@ -80,7 +80,7 @@ export const EventData = async ({ event }: { event: EventDataType }) => {
                 <div className="w-full px-4 flex flex-col gap-5">
                     <div className="w-full bg-slate-700 rounded-xl h-[200px] flex items-center overflow-hidden">
                         <img
-                            src="/images/quiz-banner/quiz1-banner.jpg"
+                            src={event.event_banner_url ? event.event_banner_url : "/images/quiz-banner/quiz1-banner.jpg"}
                             loading="lazy"
                             fetchPriority="high"
                         />

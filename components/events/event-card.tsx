@@ -27,27 +27,13 @@ export const EventCard = async ({ event }: { event: Event }) => {
     return (
         <Card className="h-fit">
             <CardHeader>
-                {event.event_banner_url ? (
-                    <img
-                        src={"/images/quiz-banner/quiz1-banner.jpg"}
-                        width={275}
-                        height={275}
-                        alt="Banner url"
-                        className="rounded-md"
-                        loading="lazy"
-                        fetchPriority="high"
-                    />
-                ) : (
-                    <img
-                        src={"/images/quiz-banner/quiz0-banner.jpg"}
-                        width={275}
-                        height={275}
-                        alt="Banner url"
-                        className="rounded-md"
-                        loading="lazy"
-                        fetchPriority="high"
-                    />
-                )}
+                <img
+                    src={event.event_banner_url ? event.event_banner_url : "/images/quiz-banner/quiz1-banner.jpg"}
+                    alt="Banner url"
+                    className="rounded-md overflow-hidden w-[325px] h-[200px]"
+                    loading="lazy"
+                    fetchPriority="high"
+                />
                 <CardTitle className="w-[275px] text-wrap line-clamp-2 pb-1 h-auto max-h-[80px]">
                     {event.event_name}
                 </CardTitle>
