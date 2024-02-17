@@ -11,23 +11,28 @@ import { BadgeIndianRupee } from "lucide-react";
 import { convertCategoryToLowerCase } from "@/lib/constants/convertCategoryToLowerCase";
 import { questionCategory } from "@prisma/client";
 
-export const QuizCard = ({ quiz, img_url }: { quiz: any, img_url: string }) => {
+export const QuizCard = ({ quiz, img_url }: { quiz: any; img_url: string }) => {
     var hasUserCompletedQuiz = true;
     // console.log(quiz);
     let categories: questionCategory[] = [];
     quiz.forEach((x: any) => {
-        categories.push(x.category)
-    })
+        categories.push(x.category);
+    });
     const uniqueCategories = categories.filter((value, index, self) => {
         return self.indexOf(value) === index;
     });
     // console.log(quiz);
 
     return (
-        <Card>
+        <Card className="h-fit">
             <CardHeader>
                 <div className="w-[275px] h-[130px] bg-green-300 rounded-md flex items-center justify-center overflow-hidden">
-                    <img src={img_url} className="w-full" />
+                    <img
+                        src={img_url}
+                        className="w-full"
+                        loading="lazy"
+                        fetchPriority="high"
+                    />
                 </div>
 
                 <CardTitle className="flex justify-between items-center">
@@ -54,10 +59,16 @@ export const QuizCard = ({ quiz, img_url }: { quiz: any, img_url: string }) => {
                 </div>
                 <div className="flex flex-wrap items-center gap-2 w-[280px]">
                     {uniqueCategories.map((q: any, i: number) => {
-                        let parsedCategory = convertCategoryToLowerCase(q)
+                        let parsedCategory = convertCategoryToLowerCase(q);
                         return (
-                            <Badge key={i} variant={"secondary"}>{parsedCategory}</Badge>
-                        )
+                            <Badge
+                                key={i}
+                                variant={"secondary"}
+                                className="capitalize"
+                            >
+                                {parsedCategory}
+                            </Badge>
+                        );
                     })}
                 </div>
             </CardContent>
