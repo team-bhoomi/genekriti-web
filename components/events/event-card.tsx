@@ -27,11 +27,6 @@ export const EventCard = async ({ event }: { event: Event }) => {
     return (
         <Card className="h-fit">
             <CardHeader>
-                {isUserRegistered && (
-                    <Badge className="absolute z-[1] mx-4 my-4 bg-primary font-medium">
-                        You are Registered
-                    </Badge>
-                )}
                 {event.event_banner_url ? (
                     <img
                         src={"/images/quiz-banner/quiz1-banner.jpg"}
@@ -114,7 +109,11 @@ export const EventCard = async ({ event }: { event: Event }) => {
                     </span>
                 </div>
             </CardContent>
-
+            {isUserRegistered && (
+                <Badge className="mx-4 my-1 bg-primary/40 font-medium text-foreground">
+                    You are Registered
+                </Badge>
+            )}
             <CardFooter className="flex justify-between gap-2 *:w-full *:rounded-md *:text-sm *:font-medium *:py-2">
                 <Link
                     href={`/events/${event.event_id}`}
