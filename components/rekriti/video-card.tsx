@@ -30,7 +30,7 @@ export const VideoCard = ({ video }: { video: any }) => {
                         </CardTitle>
                         <CardDescription className="flex flex-col">
                             <span>{`${video.user.first_name} ${video.user.last_name}`}</span>
-                            <span>{video.view_count} views</span>
+                            <span>{video.view_count} views · {video.comment_count} comments</span>
                         </CardDescription>
                     </CardContent>
                 </div>
