@@ -10,9 +10,10 @@ import Link from "next/link";
 import { BadgeIndianRupee } from "lucide-react";
 import { convertCategoryToLowerCase } from "@/lib/constants/convertCategoryToLowerCase";
 import { questionCategory } from "@prisma/client";
+import { isQuizAttempted } from "@/lib/services/quiz/isQuizAttempted";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-export const QuizCard = ({ quiz, img_url }: { quiz: any; img_url: string }) => {
-    var hasUserCompletedQuiz = true;
+export const QuizCard = async ({ quiz, img_url, quiz_no }: { quiz: any; img_url: string, quiz_no: number }) => {
     // console.log(quiz);
     let categories: questionCategory[] = [];
     quiz.forEach((x: any) => {
@@ -22,6 +23,9 @@ export const QuizCard = ({ quiz, img_url }: { quiz: any; img_url: string }) => {
         return self.indexOf(value) === index;
     });
     // console.log(quiz);
+    const { getUser } = getKindeServerSession()
+    const user = await getUser();
+    const { isAttempted } = await isQuizAttempted({ user_id: user?.id!, group: quiz_no })
 
     return (
         <Card className="h-fit">
@@ -37,7 +41,7 @@ export const QuizCard = ({ quiz, img_url }: { quiz: any; img_url: string }) => {
 
                 <CardTitle className="flex justify-between items-center">
                     Quiz {quiz[0].group!}
-                    {hasUserCompletedQuiz && (
+                    {isAttempted && (
                         <Badge className="mx-4 mb-2 font-medium bg-primary/30 text-black">
                             Completed
                         </Badge>
@@ -74,12 +78,19 @@ export const QuizCard = ({ quiz, img_url }: { quiz: any; img_url: string }) => {
             </CardContent>
 
             <CardFooter className="flex justify-between gap-2 *:w-full *:text-sm *:rounded-md *:py-2">
-                <Link
-                    href={`/quiz/${quiz[0].group}/${quiz[0].question_id}`}
-                    className="text-primary-foreground text-center font-medium bg-primary px-4 hover:bg-primary/90"
-                >
-                    Start
-                </Link>
+                {!isAttempted ?
+                    <Link
+                        href={`/quiz/${quiz[0].group}/${quiz[0].question_id}`}
+                        className="text-primary-foreground text-center font-medium bg-primary px-4 hover:bg-primary/90"
+                    >
+                        Start
+                    </Link> :
+                    <Link
+                        href={`/quiz/${quiz[0].group}`}
+                        className="text-primary-foreground text-center font-medium bg-primary px-4 hover:bg-primary/90"
+                    >
+                        Show Results
+                    </Link>}
             </CardFooter>
         </Card>
     );

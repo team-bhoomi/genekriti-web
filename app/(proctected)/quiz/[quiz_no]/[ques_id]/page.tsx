@@ -1,5 +1,7 @@
 import { QuizData } from "@/components/quiz/quiz-data";
 import { getQuizQuestions } from "@/lib/services/quiz/getQuizQuestions";
+import { isQuizAttempted } from "@/lib/services/quiz/isQuizAttempted";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 interface QuizQuestionPageParams {
     params: {
         quiz_no: string,
