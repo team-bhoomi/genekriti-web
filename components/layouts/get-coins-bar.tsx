@@ -18,7 +18,7 @@ export const GetCoinsBar = () => {
           Plant a Sap
         </Link>
         <Link
-          href={"/event"}
+          href={"/events"}
           className="bg-[#87ceeb] hover:drop-shadow-lg"
         >
           Attend an event
