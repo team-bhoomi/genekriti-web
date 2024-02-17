@@ -16,7 +16,12 @@ export const ProductCard = ({ product }: { product: any }) => {
     return (
         <Card className="h-fit">
             <CardHeader>
-                <div className="w-[275px] h-[130px] bg-green-300 rounded-md"></div>
+                <div className="w-[275px] h-[130px] bg-green-300 rounded-md overflow-hidden flex items-center">
+                    {product.images.length != 0 ?
+                        <img src={product.images[0]} alt="Product image" />
+                        : null
+                    }
+                </div>
                 <CardTitle className="w-[275px] line-clamp-1">
                     {product.name}
                 </CardTitle>

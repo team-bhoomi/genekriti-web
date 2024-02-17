@@ -248,7 +248,8 @@ model Products {
   categories productCategory[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  images Products_Images[]
+  // images Products_Images[]
+  images String[]
   seller User @relation(fields: [seller_id],references: [id],onDelete: Cascade)
   purchases Purchases[]
 }
@@ -258,7 +259,7 @@ model Products_Images {
   product_id String
   product_image_url String
   image_name String
-  product Products @relation(fields: [product_id],references: [product_id],onDelete: Cascade)
+  // product Products @relation(fields: [product_id],references: [product_id],onDelete: Cascade)
 }
 
 model Purchases {
