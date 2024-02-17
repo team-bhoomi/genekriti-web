@@ -20,9 +20,9 @@ export default async function Page() {
             <div className="flex flex-col gap-3 p-4 pb-10">
                 <div className="text-3xl font-semibold">Videos</div>
                 <div className="flex flex-wrap items-center justify-start gap-10">
-                    {videos?.data ? videos.data.map((video, index) => {
+                    {videos?.data ? videos.data.map((video, i) => {
                         return (
-                            <VideoCard video={video} />
+                            <VideoCard video={video} key={i} />
                         )
                     }) :
                         <div>

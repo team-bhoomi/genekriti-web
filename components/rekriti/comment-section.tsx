@@ -2,10 +2,14 @@ import { SendHorizonal } from "lucide-react";
 import { Button } from "../ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createCommentAction } from "@/lib/actions/comments/createCommentAction";
+import { getAllCommentsOfVideo } from "@/lib/services/videos/comments/getAllCommentsOfVideo";
 
 export const CommentSection = async ({ video }: { video: any }) => {
     const { getUser } = getKindeServerSession()
     const currentUser = await getUser()
+    const { data: comments } = await getAllCommentsOfVideo({
+        video_id: video.video_id
+    })
     return (
         <div className="flex flex-col gap-3">
             <form action={createCommentAction} className="flex items-center gap-2">
@@ -25,48 +29,22 @@ export const CommentSection = async ({ video }: { video: any }) => {
                 </Button>
             </form>
 
-
-            <CommentsCard />
-            <CommentsCard />
-            <CommentsCard />
-            <CommentsCard />
-            <CommentsCard />
-
-
-            {/* <div className="flex items-center gap-2">
-                <div className="w-9 h-9 rounded-full bg-red-500"></div>
-                <div className="flex flex-col">
-                    <span className="text-sm text-muted-foreground font-semibold">
-                        John Doe
-                    </span>
-                    <span>The video is very nice. Thank you</span>
+            {comments.map((comment: any, i: number) =>
+            (
+                <div className="flex items-center gap-2" key={i}>
+                    <div className="w-9 h-9 rounded-full bg-red-500 overflow-hidden flex items-center">
+                        <img src={comment.video.user.profile_image} alt="" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-sm text-muted-foreground font-semibold">
+                            {`${comment.video.user.first_name} ${comment.video.user.last_name}`}
+                        </span>
+                        <span>{comment.comment}</span>
+                    </div>
                 </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-                <div className="w-9 h-9 rounded-full bg-red-500"></div>
-                <div className="flex flex-col">
-                    <span className="text-sm text-muted-foreground font-semibold">
-                        Jane Smith
-                    </span>
-                    <span>The idea is really very good</span>
-                </div>
-            </div> */}
+            )
+            )}
         </div>
     );
 };
 
-
-const CommentsCard = () => {
-    return (
-        <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-full bg-red-500"></div>
-            <div className="flex flex-col">
-                <span className="text-sm text-muted-foreground font-semibold">
-                    Jane Smith
-                </span>
-                <span>The idea is really very good</span>
-            </div>
-        </div>
-    )
-}

@@ -10,7 +10,7 @@ export const getAllCommentsOfVideo = async ({
 }: {
   video_id: string;
 }): Promise<{
-  data: Video_comments[] | null;
+  data: any;
   success: boolean;
   error: unknown;
   message?: string;
@@ -19,6 +19,13 @@ export const getAllCommentsOfVideo = async ({
     const response = await prisma.video_comments.findMany({
       where: {
         video_id,
+      },
+      include: {
+        video: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
     return {
