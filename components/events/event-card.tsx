@@ -33,20 +33,24 @@ export const EventCard = async ({ event }: { event: Event }) => {
                     </Badge>
                 )}
                 {event.event_banner_url ? (
-                    <Image
+                    <img
                         src={"/images/quiz-banner/quiz1-banner.jpg"}
                         width={275}
                         height={275}
                         alt="Banner url"
                         className="rounded-md"
+                        loading="lazy"
+                        fetchPriority="high"
                     />
                 ) : (
-                    <Image
-                        src={"/images/quiz-banner/quiz1-banner.jpg"}
+                    <img
+                        src={"/images/quiz-banner/quiz0-banner.jpg"}
                         width={275}
                         height={275}
                         alt="Banner url"
                         className="rounded-md"
+                        loading="lazy"
+                        fetchPriority="high"
                     />
                 )}
                 <CardTitle className="w-[275px] text-wrap line-clamp-2 pb-1 h-auto max-h-[80px]">

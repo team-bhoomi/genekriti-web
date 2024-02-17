@@ -51,6 +51,7 @@ export const SideBar = ({
                     </div>
                 )}
             </div>
+
             <NavigationMenuList>
                 {featureMenu.map(({ name, Icon, menulink }, id) => {
                     if (

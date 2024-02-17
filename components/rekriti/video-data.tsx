@@ -39,6 +39,8 @@ export const VideoData = () => {
                             src="/images/tree.png"
                             alt="uploader profile"
                             className="w-full"
+                            loading="lazy"
+                            fetchPriority="high"
                         />
                     </div>
                     <div>John Doe</div>
