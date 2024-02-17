@@ -22,12 +22,17 @@ import { getAllAttendees } from "@/lib/services/events/getAllAttendees";
 import { getAllEventsAttendedByUser } from "@/lib/services/events/getAllEventsAttendedByUser";
 import { EventUserHistoryCard } from "./event-user-history-card";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export async function ProfileHistory({ data }: { data: any }) {
     // TODO hanlde cases when user has no data on website
-    if (!data?.payer_transactions || !data?.recipent_transactions) {
-        redirect("/dashboard");
-    }
+    // if (!data?.payer_transactions || !data?.recipent_transactions) {
+    //     redirect("/dashboard");
+    // }
+    // console.log("--------------------------------");
+    // console.log(data);
+    // console.log("--------------------------------");
+
     const transactions = [...data.payer_transactions, ...data.recipent_transactions]
     // console.log(data);
     const IS_ORG: boolean = data.role === "ORGANIZATION";
@@ -62,13 +67,27 @@ export async function ProfileHistory({ data }: { data: any }) {
                             return (
                                 <EventHistoryCard event={event} key={i} />
                             )
-                        }) : null}
+                        }) :
+                            <div className="flex flex-col justify-start items-start gap-2">
+                                <Link href={"/events"}>
+                                    <Button variant={"outline"}>
+                                        Explore events
+                                    </Button>
+                                </Link>
+                            </div>
+                        }
 
                         {!IS_ORG && userEventDetails ? userEventDetails.map((event: any, i: number) => {
                             return (
                                 <EventUserHistoryCard event={event} key={i} />
                             )
-                        }) : null}
+                        }) : <div className="flex flex-col justify-start items-start gap-2">
+                            <Link href={"/events"}>
+                                <Button variant={"outline"}>
+                                    Explore events
+                                </Button>
+                            </Link>
+                        </div>}
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -81,19 +100,35 @@ export async function ProfileHistory({ data }: { data: any }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        {data.seller ? data.seller.map((product: any, i: number) => {
+                        {data.seller.length != 0 ? data.seller.map((product: any, i: number) => {
                             return (
                                 <ProductHistoryCard key={i} product={product} />
 
                             )
-                        }) : "You have not sold any products yet"}
+                        }) :
+                            <div className="flex flex-col justify-start items-start gap-2">
+                                <div>{"Sell your first product today!"}</div>
+                                <Link href={"/market-place/sell"}>
+                                    <Button variant={"outline"}>
+                                        Sell a product
+                                    </Button>
+                                </Link>
+                            </div>
+                        }
 
-                        {data.buyer ? data.buyer.map((product: any, i: number) => {
+                        {data.buyer.length != 0 ? data.buyer.map((product: any, i: number) => {
                             return (
                                 <ProductPurchaseHistoryCard product={product} key={i} />
-
                             )
-                        }) : "You have not bought any products yet"}
+                        }) :
+                            <div className="flex flex-col justify-start items-start gap-2">
+                                <div>{"Buy your first product today!"}</div>
+                                <Link href={"/market-place/sell"}>
+                                    <Button variant={"outline"}>
+                                        Purchase Products
+                                    </Button>
+                                </Link>
+                            </div>}
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -107,11 +142,13 @@ export async function ProfileHistory({ data }: { data: any }) {
                     </CardHeader>
                     <CardContent className="space-y-2">
                         {
-                            transactions ? transactions.map((transaction: any, i: number) => {
+                            transactions.length != 0 ? transactions.map((transaction: any, i: number) => {
                                 return (
                                     <TransactionHistoryCard transaction={transaction} key={i} />
                                 )
-                            }) : "No transactions yet"
+                            }) : <div className="flex flex-col justify-start items-start gap-2">
+                                <div>{"Oops, you haven't made any transactions yet!"}</div>
+                            </div>
                         }
                     </CardContent>
                 </Card>

@@ -37,7 +37,8 @@ export default async function Page() {
             </div>
             <div className="border-b-2 border-slate-300" />
             <div className="text-lg font-medium">Account History</div>
-            {data?.attendees.length === 0 && data?.conversations.length === 0 && data?.payer_transactions?.length === 0 && data?.recipent_transactions.length == 0 && data?.seller.length == 0 ? "No data yet please do something on the website" : <ProfileHistory data={data} />}
+            {/* {data?.attendees.length === 0 && data?.conversations.length === 0 && data?.payer_transactions?.length === 0 && data?.recipent_transactions.length == 0 && data?.seller.length == 0 ? "No data yet please do something on the website" : <ProfileHistory data={data} />} */}
+            <ProfileHistory data={data} />
         </main>
     );
 }
