@@ -8,7 +8,6 @@ export const getAllNotSoldProducts = async () => {
       },
       include: {
         seller: true,
-        images: true,
       }
     })
     return response;

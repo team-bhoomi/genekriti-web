@@ -47,7 +47,18 @@ export const ProductData = ({ product, children }: { product: any, children: Rea
                 <div className="w-full h-[500px] px-12">
                     <Carousel setApi={setApi} className="w-full h-full">
                         <CarouselContent>
-                            {Array.from({ length: 5 }).map((_, index) => (
+                            {product.images.length != 0 ? product.images.map((image: string, index: number) => (
+                                <CarouselItem key={index}>
+                                    <Card className="h-full w-auto flex items-center">
+                                        <CardContent className="flex aspect-square items-center justify-center w-full">
+                                            {/* <span className="text-4xl font-semibold">
+                                                {index + 1}
+                                            </span> */}
+                                            <img src={image} alt="Product images" className="w-full" />
+                                        </CardContent>
+                                    </Card>
+                                </CarouselItem>
+                            )) : Array.from({ length: 5 }).map((_, index: number) => (
                                 <CarouselItem key={index}>
                                     <Card className="h-full w-auto flex items-center">
                                         <CardContent className="flex aspect-square items-center justify-center w-full">
