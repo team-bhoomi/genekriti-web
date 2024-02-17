@@ -8,9 +8,10 @@ export const sellProduct = async ({
   description,
   price,
   name,
+  images,
 }: Pick<
   Products,
-  "categories" | "seller_id" | "description" | "price" | "name"
+  "categories" | "seller_id" | "description" | "price" | "name" | "images"
 >): Promise<{
   data: Products | null;
   error: unknown;
@@ -25,6 +26,7 @@ export const sellProduct = async ({
         name,
         price,
         categories,
+        images,
       },
     });
 

@@ -8,7 +8,6 @@ export const getSeller = async ({ product_id }: { product_id: string }) => {
       },
       include: {
         seller: true,
-        images: true,
       },
     });
     return response;

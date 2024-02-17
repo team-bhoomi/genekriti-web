@@ -17,7 +17,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { productCategories } from "@/lib/data/categories";
 import { BadgeIndianRupee } from "lucide-react";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
     Carousel,
@@ -28,11 +28,27 @@ import {
     CarouselApi
 } from "@/components/ui/carousel"
 import { useKindeAuth, useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
-import { getCurrentUserId } from "@/lib/constants/getCurrentUserId";
+import { MultiImageDropzone, type FileState } from "@/components/edgestore/MultipImageDropZone"
+import { useEdgeStore } from '@/lib/edgestore';
 
 export default function Page() {
+    const [fileStates, setFileStates] = useState<FileState[]>([]);
+    const { edgestore } = useEdgeStore();
+    function updateFileProgress(key: string, progress: FileState['progress']) {
+        setFileStates((fileStates) => {
+            const newFileStates = structuredClone(fileStates);
+            const fileState = newFileStates.find(
+                (fileState) => fileState.key === key,
+            );
+            if (fileState) {
+                fileState.progress = progress;
+            }
+            return newFileStates;
+        });
+    }
     const { user } = useKindeBrowserClient();
     const [prodCat, setProdCat] = useState<string[]>([]);
+
     const handleTags = (tag: string) => {
         var usedTags = [...prodCat];
         if (prodCat.includes(tag)) {
@@ -47,6 +63,8 @@ export default function Page() {
     const [count, setCount] = useState(0);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [uploadedImages, setUploadedImages] = useState<String[]>([]);
+    // carsosel props
     const [price, setPrice] = useState("")
     useEffect(() => {
         if (!api) {
@@ -60,23 +78,28 @@ export default function Page() {
             setCurrent(api.selectedScrollSnap() + 1);
         });
     }, [api]);
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("categories", JSON.stringify(prodCat));
-    formData.append("seller_id", user?.id as string);
+
+
+    const handleSellProduct = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("price", price);
+        formData.append("categories", JSON.stringify(prodCat));
+        formData.append("seller_id", user?.id as string);
+        formData.append("images", JSON.stringify(uploadedImages));
+        await sellProductAction(formData);
+    }
     return (
         <main className="w-full min-h-screen pt-4 pr-4 flex flex-col gap-6">
             <div className="text-xl font-semibold">Product Details</div>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                sellProductAction(formData)
-            }}>
+            <form className="flex flex-col gap-10" onSubmit={(e) => { handleSellProduct(e) }}>
                 <div className="flex justify-between gap-5 px-5">
                     {/* <AddProduct /> */}
 
-                    <div className="flex flex-col gap-5 pr-5 w-full *:flex *:flex-col *:gap-1 *:text-lg *:font-medium">
+                    <div className="flex flex-col gap-5 pr-5 w-full *:flex *:flex-col *:gap-1 *:text-lg *:font-medium max-w-[35rem]">
                         <div className="*:text-lg">
                             <Label>Product Name</Label>
                             <Input type="text" onChange={e => { setName(e.target.value) }} name="name" placeholder="Product Name" />
@@ -147,36 +170,42 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center gap-5 w-full">
-                        <div className="w-[500px] h-[300px] px-12 mb-12">
-                            <Carousel setApi={setApi} className="w-full h-[300px]">
-                                <CarouselContent>
-                                    {Array.from({ length: 5 }).map((_, index) => (
-                                        <CarouselItem key={index}>
-                                            <Card className="h-[300px] w-auto flex items-center">
-                                                <CardContent className="flex aspect-square items-center justify-center w-full">
-                                                    <span className="text-4xl font-semibold">
-                                                        {index + 1}
-                                                    </span>
-                                                </CardContent>
-                                            </Card>
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
-                            </Carousel>
-                            <div className="py-2 text-center text-sm text-muted-foreground">
-                                Slide {current} of {count}
-                            </div>
-                        </div>
-                        <div></div>
-                        <Button variant={"outline"} className="w-fit z-10">
-                            Add more images
-                            <Input type="file" className="absolute opacity-0 w-fit" />
-                        </Button>
-                    </div>
-                    {/* <UploadedCarousel /> */}
+                </div>
+                <div>
+                    <MultiImageDropzone
+                        className="w-32 h-32"
+                        value={fileStates}
+                        dropzoneOptions={{
+                            maxFiles: 5,
+                        }}
+                        onChange={(files) => {
+                            setFileStates(files);
+                        }}
+                        onFilesAdded={async (addedFiles) => {
+                            setFileStates([...fileStates, ...addedFiles]);
+                            await Promise.all(
+                                addedFiles.map(async (addedFileState) => {
+                                    try {
+                                        const res = await edgestore.publicFiles.upload({
+                                            file: addedFileState.file as File,
+                                            onProgressChange: async (progress) => {
+                                                updateFileProgress(addedFileState.key, progress);
+                                                if (progress === 100) {
+                                                    await new Promise((resolve) => setTimeout(resolve, 1000));
+                                                    updateFileProgress(addedFileState.key, 'COMPLETE');
+                                                }
+                                            },
+                                        });
+                                        console.log(res);
+                                        setUploadedImages([...uploadedImages, res.url])
+                                        // add files to images arr
+                                    } catch (err) {
+                                        updateFileProgress(addedFileState.key, 'ERROR');
+                                    }
+                                }),
+                            );
+                        }}
+                    />
                 </div>
                 <Button type="submit" className="w-fit m-auto">Publish your product</Button>
             </form>

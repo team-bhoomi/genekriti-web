@@ -15,7 +15,6 @@ export const getProductyId = async ({
       },
       include: {
         seller: true,
-        images: true,
       },
     });
     return response;

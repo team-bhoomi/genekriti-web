@@ -16,12 +16,17 @@ export const sellProductAction = async (formData: FormData) => {
     let str = converCategoryToUpperCase(category);
     parsedCategories.push(str);
   });
+  const images = JSON.parse(formData.get("images") as string);
+  console.log(images);
+  console.log(parsedCategories);
+
   const response = await sellProduct({
     price,
     seller_id,
     name,
     description,
     categories: parsedCategories,
+    images,
   });
   redirect("/market-place");
 };
