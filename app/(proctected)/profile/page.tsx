@@ -4,14 +4,13 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-    const { getUser } = getKindeServerSession()
+    const { getUser } = getKindeServerSession();
     const user = await getUser();
-    const data = await getUserById({ id: user?.id as string })
+    const data = await getUserById({ id: user?.id as string });
     // if (!data) {
     //     redirect("/");
     // }
     console.log(data);
-
 
     return (
         <main className="w-full min-h-screen pr-4 pb-10 flex flex-col gap-5">
@@ -21,7 +20,12 @@ export default async function Page() {
 
             <div className="flex items-center gap-5">
                 <div className="w-20 h-20 rounded-full bg-red-500 flex items-center overflow-hidden">
-                    <img src={data?.profile_image!} alt="Profile image" />
+                    <img
+                        src={data?.profile_image!}
+                        alt="Profile image"
+                        loading="lazy"
+                        fetchPriority="high"
+                    />
                 </div>
                 <div className="flex flex-col gap-1">
                     <div className="text-xl font-semibold">{`${data?.first_name} ${data?.last_name}`}</div>

@@ -10,6 +10,8 @@ export const VideoCard = () => {
                         src="/images/quiz-banner/quiz7-banner.jpg"
                         alt="video-banner"
                         className="w-full"
+                        loading="lazy"
+                        fetchPriority="high"
                     />
                 </div>
                 <div className="px-2 py-1 flex items-center">
@@ -18,6 +20,8 @@ export const VideoCard = () => {
                             src="/images/tree.png"
                             alt="uploader profile"
                             className="w-full"
+                            loading="lazy"
+                            fetchPriority="high"
                         />
                     </div>
                     <CardContent className="space-y-0 gap-0 p-2">

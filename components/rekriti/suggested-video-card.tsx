@@ -9,7 +9,9 @@ export const SuggestedVideoCard = () => {
                     <img
                         src="/images/quiz-banner/quiz8-banner.jpg"
                         alt="video-banner"
-                        className="object-cover h-full "
+                        className="object-cover h-full"
+                        loading="lazy"
+                        fetchPriority="high"
                     />
                 </div>
                 <CardContent className="space-y-0 gap-1 w-[285px]">
