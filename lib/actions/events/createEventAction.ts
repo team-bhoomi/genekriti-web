@@ -59,7 +59,8 @@ export const createEventAction = async (formData: FormData) => {
     mode: formData.get("mode") as eventMode,
   });
 
+  // console.log(response);
   if (response) {
-    redirect("/events");
+    redirect(`/events/${response.data?.event_id}`);
   }
 };

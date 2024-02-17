@@ -8,7 +8,7 @@ export const createVideo = async ({
   description,
   thumbnail_img_url,
   video_url,
-  category,
+  categories,
 }: Pick<
   Videos,
   | "creator_id"
@@ -16,7 +16,7 @@ export const createVideo = async ({
   | "description"
   | "thumbnail_img_url"
   | "video_url"
-  | "category"
+  | "categories"
 >): Promise<{
   data: Videos | null;
   success: boolean;
@@ -31,7 +31,7 @@ export const createVideo = async ({
         description,
         thumbnail_img_url,
         video_url,
-        category,
+        categories,
       },
     });
     return {
