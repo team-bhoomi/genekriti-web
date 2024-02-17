@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 
 export const VideoCard = ({ video }: { video: any }) => {
     return (
-        <Link href={`/rekriti/video/${"abc"}`}>
+        <Link href={`/rekriti/video/${video.video_id}`}>
             <Card className="bg-background overflow-hidden">
                 <div className="w-[300px] h-[190px] flex items-center justify-center overflow-hidden">
                     <img

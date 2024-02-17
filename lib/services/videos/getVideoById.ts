@@ -17,6 +17,12 @@ export const getVideoById = async ({
       where: {
         video_id,
       },
+      include: {
+        user: true,
+        comments: true,
+        likes: true,
+        views: true,
+      },
     });
     return {
       data: response,

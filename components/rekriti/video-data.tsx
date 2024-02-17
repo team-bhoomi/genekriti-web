@@ -2,15 +2,18 @@ import { ThumbsUp } from "lucide-react";
 import { VideoPlayer } from "./video-player";
 import { Label } from "../ui/label";
 import { Badge } from "../ui/badge";
+import dayjs from "dayjs";
+import { convertCategoryToLowerCase } from "@/lib/constants/convertCategoryToLowerCase";
 
-export const VideoData = () => {
+export const VideoData = ({ video }: { video: any }) => {
+
     return (
         <div className="w-full flex flex-col gap-2">
-            <VideoPlayer />
+            <VideoPlayer video_url={video.video_url} />
             <div className="*:pl-2">
                 <div className="flex items-center justify-between">
                     <div className="pb-1 font-semibold text-muted-foreground">
-                        0 views · 0 likes · 0 comments
+                        {video.view_count} views · {video.like_count} likes · {video.comment_count} comments
                     </div>
                     <Label>
                         <input
@@ -27,11 +30,11 @@ export const VideoData = () => {
                     </Label>
                 </div>
                 <div className="text-xs font-medium text-muted-foreground pb-1">
-                    Uploaded Date: 00/00/0000
+                    Uploaded Date: {dayjs(video.created_at).format("DD/MM/YYYY")}
                 </div>
 
                 <div className="text-3xl font-semibold h-[80px]">
-                    Create new landscape art with waste water colors
+                    {video.title}
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="w-[30px] h-[30px] rounded-full flex items-center justify-center overflow-hidden">
@@ -43,23 +46,19 @@ export const VideoData = () => {
                             fetchPriority="high"
                         />
                     </div>
-                    <div>John Doe</div>
+                    <div>{`${video.user.first_name} ${video.user.last_name}`}</div>
                 </div>
                 <div></div>
                 <div className="flex flex-wrap items-center gap-2 pt-3 *:bg-primary/30 *:text-foreground *:hover:bg-primary/30">
-                    <Badge>Category 1</Badge>
-                    <Badge>Category 2</Badge>
-                    <Badge>Category 3</Badge>
+                    {video.categories.map((category: any, index: number) => {
+                        const parsedCategory = convertCategoryToLowerCase(category);
+                        return (
+                            <Badge key={index}>{parsedCategory}</Badge>
+                        )
+                    })}
                 </div>
                 <div className="pt-2 text-muted-foreground">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Dolorem deleniti quam temporibus? Sed iste laborum maiores
-                    cupiditate consequuntur! Repellendus architecto, ipsum
-                    soluta voluptatum quod eum ducimus et tempora consectetur
-                    eligendi. Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit. Possimus, facilis magnam nobis voluptatum
-                    rerum ad a quibusdam deleniti aspernatur illum quia quis
-                    maxime assumenda dicta non vel adipisci omnis eaque?
+                    {video.description}
                 </div>
             </div>
         </div>
