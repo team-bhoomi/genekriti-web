@@ -3,6 +3,9 @@ import { User } from "@prisma/client";
 
 export const getUserById = async ({ id }: { id: string }) => {
   try {
+    if (!id) {
+      return;
+    }
     const response = await prisma.user.findUnique({
       where: {
         id,

@@ -12,12 +12,22 @@ export async function middleware(request: NextRequest) {
 }
 export const config = {
   matcher: [
+    "/attendees",
     "/dashboard",
+    "/events",
+    "/events/:path*",
+    "/events/create",
+    "/events/edit",
+    "/market-place",
+    "/market-place/:path*",
+    "/market-place/sell",
+    "/profile",
+    "/quiz",
+    "/quiz/:path*",
+    "/rekriti",
+    "/rekriti/ask",
+    "/rekriti/video",
     "/onboard",
     "/onboard/org",
-    "/events",
-    "/market-place",
-    "/profile",
-    "/events/:path*",
   ],
 };
