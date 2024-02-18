@@ -53,10 +53,10 @@ export const Ticket = async ({
     }
 
     return (
-        <Card className="p-4 w-1/2 min-w-fit flex items-center gap-4 bg-gradient-to-r from-[#d4fc79] to-[#96e6a1] relative overflow-hidden">
-            <div className="w-[200px] h-[200px] bg-accent rounded-md"></div>
+        <Card className="p-4 w-[30rem] min-w-fit flex justify-center items-center gap-4 bg-gradient-to-r from-[#d4fc79] to-[#96e6a1] relative overflow-hidden">
+            {/* <div className="w-[200px] h-[200px] bg-accent rounded-md"></div> */}
             <CardContent className="p-0 w-fit">
-                <CardTitle className="w-[425px] flex items-center justify-between">
+                <CardTitle className="w-[375px] flex items-center justify-between">
                     {registrant.user.first_name}'s ticket
                     <Badge className="bg-accent text-foreground font-medium tracking-wide">
                         {IS_ATTENDEE ? "Attendee" : "Registered"}
