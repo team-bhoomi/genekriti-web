@@ -15,6 +15,8 @@ export const addConversationAction = async (formData: FormData) => {
     parsedCategories.push(str);
   });
   const prompt = formData.get("prompt") as string;
+  const resource_url = formData.get("resource_url") as string;
+  console.log(resource_url);
   const AIoutput = await askOllama({ prompt });
   console.log(AIoutput);
   const { data } = await addConversation({
@@ -23,7 +25,7 @@ export const addConversationAction = async (formData: FormData) => {
     prompt,
     ai_response: AIoutput,
     title: "",
-    resource_url: "",
+    resource_url,
   });
   // redirect("/dashboard");
   return data;

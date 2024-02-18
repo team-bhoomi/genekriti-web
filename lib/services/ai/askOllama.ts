@@ -5,7 +5,7 @@ export const askOllama = async ({ prompt }: { prompt: string }) => {
     model: ollama
       .CompletionTextGenerator({
         model: "mistral:text", // mistral base model without instruct fine-tuning (no prompt template)
-        temperature: 0.4,
+        temperature: 0.6,
         maxGenerationTokens: 300,
       })
       .withTextPrompt(),

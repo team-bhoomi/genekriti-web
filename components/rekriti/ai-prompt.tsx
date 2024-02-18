@@ -13,8 +13,14 @@ import {
 import { Label } from "../ui/label";
 import { FormEvent, useState } from "react";
 import { addConversationAction } from "@/lib/actions/ai/addConversationAction";
+import { Skeleton } from "../ui/skeleton";
+import { SingleImageUpload } from "../edgestore/upload-image";
+import { SingleImageDropzone } from "../edgestore/SingleImageDropzone";
+import { useEdgeStore } from "@/lib/edgestore";
 
 export const AIPrompt = ({ user_id }: { user_id: string }) => {
+    const [file, setFile] = useState<File>();
+    const { edgestore } = useEdgeStore();
     const [prodCat, setProdCat] = useState<string[]>([]);
     const [AIResponse, setAIResponse] = useState("");
     const [loading, setLoading] = useState(false);
@@ -29,15 +35,30 @@ export const AIPrompt = ({ user_id }: { user_id: string }) => {
         setProdCat(usedTags);
     };
     const [prompt, setPrompt] = useState("");
+    const handleImageUpload = async (file: File): Promise<string> => {
+        let url = "";
+        if (file) {
+            const res = await edgestore.publicFiles.upload({
+                file,
+                onProgressChange: (progress) => {
+                    console.log(progress);
+                },
+            });
+            // console.log(res);
+            url = res.url;
+        }
+        return url;
+    }
 
     const hanldeAIResponse = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
+        const resource_url = await handleImageUpload(file!);
         const formData = new FormData();
         formData.append("user_id", user_id);
         formData.append("categories", JSON.stringify(prodCat))
         formData.append("prompt", prompt);
-
+        formData.append("resource_url", resource_url);
         const res = await addConversationAction(formData);
         console.log(res);
         setRes(res?.ai_response!);
@@ -48,7 +69,17 @@ export const AIPrompt = ({ user_id }: { user_id: string }) => {
             <form onSubmit={(e) => {
                 hanldeAIResponse(e);
             }} className="w-full h-auto flex flex-col gap-3">
-                <div className="w-full h-52 bg-blue-300 rounded-xl"></div>
+                {/* <div className="w-full h-52 bg-blue-300 rounded-xl"></div> */}
+                <div>
+                    <SingleImageDropzone
+                        width={700}
+                        height={200}
+                        value={file}
+                        onChange={(file) => {
+                            setFile(file);
+                        }}
+                    />
+                </div>
                 <textarea
                     onChange={e => { setPrompt(e.target.value) }}
                     className="w-full resize-none line-clamp-2 p-3 rounded-xl"
@@ -96,12 +127,17 @@ export const AIPrompt = ({ user_id }: { user_id: string }) => {
             </form>
             {<div className="w-full flex flex-col gap-3">
                 <div className="text-2xl font-semibold">AI Response :</div>
-                <div className="prose w-full min-h-[350px] p-4 bg-primary/20 outline-dashed outline-2 outline-offset-2 outline-black rounded-xl border-2 border-black">
-                    {/* <pre>{JSON.stringify(res, null, 2)}</pre> */}
-                    {res}
-                </div>
+                <article className="prose w-full min-h-[350px] p-4 bg-primary/20 outline-dashed outline-2 outline-offset-2 outline-black rounded-xl border-2 border-black">
+                    <div className="flex flex-col justify-start items-start gap-2">
+                        {loading && "abcdefghijklmno".split("").map((item, i) => {
+                            return (
+                                <Skeleton className="w-full h-3 rounded-md bg-black/30" key={i} />
+                            )
+                        })}
+                        {res && !loading ? res : null}
+                    </div>
+                </article>
             </div>}
-            <div>{loading ? "I am loading" : "I am done loading "}</div>
         </div>
     );
 };
