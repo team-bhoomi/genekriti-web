@@ -60,14 +60,14 @@ export const featureMenu = [
         ),
         menulink: "/events",
     },
-    {
-        id: 5,
-        name: "Plant a Sap",
-        Icon: ({ peerClassName }: { peerClassName: string }) => (
-            <Sprout width={20} height={20} className={cn(peerClassName, "")} />
-        ),
-        menulink: "/plant-a-sap",
-    },
+    // {
+    //     id: 5,
+    //     name: "Plant a Sap",
+    //     Icon: ({ peerClassName }: { peerClassName: string }) => (
+    //         <Sprout width={20} height={20} className={cn(peerClassName, "")} />
+    //     ),
+    //     menulink: "/plant-a-sap",
+    // },
     {
         id: 6,
         name: "Take a Quiz",
@@ -76,14 +76,14 @@ export const featureMenu = [
         ),
         menulink: "/quiz",
     },
-    {
-        id: 7,
-        name: "Analytics",
-        Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
-            <LineChart width={20} height={20} />
-        ),
-        menulink: "/analytics",
-    },
+    // {
+    //     id: 7,
+    //     name: "Analytics",
+    //     Icon: ({ peerClassName = "" }: { peerClassName: string }) => (
+    //         <LineChart width={20} height={20} />
+    //     ),
+    //     menulink: "/analytics",
+    // },
 
     {
         id: 8,
