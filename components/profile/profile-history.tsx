@@ -40,6 +40,7 @@ export async function ProfileHistory({ data }: { data: any }) {
     } else {
         userEventDetails = await getAllEventsAttendedByUser({ user_id: data.id })
     }
+    // console.log(data);
     return (
         <Tabs defaultValue="events" className="w-full p-5 pt-0">
             <TabsList className="flex w-full items-center justify-between">
@@ -142,9 +143,16 @@ export async function ProfileHistory({ data }: { data: any }) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        <ConversationHistoryCard />
-                        <ConversationHistoryCard />
-                        <ConversationHistoryCard />
+                        {data.conversations != 0 ?
+                            data.conversations.map((conversation: any, i: number) => {
+                                return (
+                                    <ConversationHistoryCard conversation={conversation} key={i} />
+                                )
+                            }) : <Link href={"/rekriti/ask"}>
+                                <Button>Ask AI</Button>
+                            </Link>
+                        }
+
                     </CardContent>
                 </Card>
             </TabsContent>
