@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -31,6 +31,7 @@
     "dayjs": "^1.11.10",
     "embla-carousel-react": "^8.0.0-rc22",
     "lucide-react": "^0.323.0",
+    "modelfusion": "^0.136.0",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
@@ -41,6 +42,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "@types/canvas-confetti": "^1.6.4",
     "@types/node": "^20.11.17",
     "@types/react": "^18",
