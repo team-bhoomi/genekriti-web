@@ -15,7 +15,6 @@ import { ListMenu } from "./list-menu";
 export const SideBar = ({
     clicked,
     setClicked,
-
 }: {
     clicked: boolean;
     setClicked: Dispatch<SetStateAction<boolean>>;
