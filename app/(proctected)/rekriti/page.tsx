@@ -23,7 +23,7 @@ export default async function Page() {
                         Ask AI
                     </Link>
                     <Link
-                        href={"/rekriti/video"}
+                        href={"/rekriti/video/upload"}
                         className="group whitespace-nowrap flex items-center gap-2 bg-primary/30 rounded-md text-center font-medium px-4 py-2 transition hover:bg-primary/90 hover:text-white"
                     >
                         <Upload width={18} height={18} />

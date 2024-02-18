@@ -5,11 +5,11 @@ export const SuggestedVideoCard = ({ video }: { video: any }) => {
     return (
         <Link href={`/rekriti/video/${video.video_id}`}>
             <Card className="overflow-hidden flex items-center !bg-transparent shadow-none border-none my-3">
-                <div className="w-40 h-24 bg-red-500 flex items-center rounded-lg overflow-hidden">
+                <div className="w-40 h-24 flex items-center rounded-lg overflow-hidden">
                     <img
                         src={video.thumbnail_img_url ? video.thumbnail_img_url : "/images/quiz-banner/quiz8-banner.jpg"}
                         alt="video-banner"
-                        className="object-cover h-full overflow-hidden flex items-center"
+                        className="w-full object-cover h-full overflow-hidden flex items-center"
                         loading="lazy"
                         fetchPriority="high"
                     />
