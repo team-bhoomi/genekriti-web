@@ -15,7 +15,7 @@ export default async function Home() {
     }
 
     return (
-        <main className="flex min-h-screen w-full flex-col items-center justify-between overflow-hidden bg-[#faf0e6]">
+        <main className="flex min-h-screen w-full flex-col items-center justify-between overflow-hidden bg-[#faf0e6] select-none">
             <Navbar />
             <Hero />
             <About />
