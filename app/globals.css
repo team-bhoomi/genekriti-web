@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @layer base {
-     :root {
+    :root {
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
         --card: 0 0% 100%;
@@ -77,4 +77,64 @@
         right: 0;
         left: unset;
     }
+}
+
+.home--banner {
+    --mask: linear-gradient(-90deg, #0000 30px, #000 0) 15px,
+        radial-gradient(15px, #000 98%, #0000) 50%/30px 27.75px space repeat;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+}
+
+.tagline--banner {
+    --mask: radial-gradient(6px at 0 75%, #0000 98%, #000) 6px 50%/51% 24px
+            repeat-y,
+        radial-gradient(6px at 50% 25%, #000 99%, #0000 101%) left/12px 24px
+            repeat-y,
+        radial-gradient(6px at 100% 25%, #0000 98%, #000) calc(100% - 6px)
+            calc(50% + 12px) / 51% 24px repeat-y,
+        radial-gradient(6px at 50% 75%, #000 99%, #0000 101%) 100%
+            calc(50% + 12px) / 12px 24px repeat-y;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+}
+
+@font-face {
+    font-family: samakranFont;
+    src: url("../public/fonts/SAMARN__.TTF");
+}
+
+.hero--heading,
+.about--heading,
+.logo {
+    font-family: samakranFont;
+}
+
+.landing--button {
+    font-weight: 700;
+    padding: 6px;
+    background: #faf0e6;
+    border: 3px solid #cb4154;
+    border-radius: 8px;
+    box-shadow: 1.6px 1.6px;
+    color: #cb4154;
+    cursor: pointer;
+}
+
+.landing--button:hover {
+    transform: translate(0.8px, 0.8px);
+    box-shadow: 2.4px 2.4px;
+}
+
+.about--bg {
+    --mask: linear-gradient(to right, #0000 10px, #000 0),
+        radial-gradient(10px, #000 98%, #0000) left/20px 18.5px;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+}
+
+.about--tagline {
+    --mask: radial-gradient(10px at left, #0000 97%, #000) 50%/ 100% 18.5px;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
 }
