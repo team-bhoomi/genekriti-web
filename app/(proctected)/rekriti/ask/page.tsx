@@ -11,7 +11,7 @@ export default async function Page() {
                 ReKriti : Ask
             </div>
             <div className="flex flex-col gap-14 pt-4 px-4 pb-10">
-                <AIPrompt user_id={user?.id as string} />
+                <AIPrompt user_id={user?.id!} />
                 <div className="flex flex-col gap-3">
                     <div className="text-2xl font-semibold">
                         Suggested Videos :
