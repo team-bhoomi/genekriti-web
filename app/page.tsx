@@ -1,24 +1,27 @@
-
-import { Button } from "@/components/ui/button";
-import { questions } from "@/lib/data/quiz";
-import { prisma } from "@/lib/prisma";
-import { RegisterLink, LoginLink, getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
+import { About } from "@/components/landing/about";
+import { Footer } from "@/components/landing/footer";
+import { Hero } from "@/components/landing/hero";
+import { Impact } from "@/components/landing/impact";
+import { Navbar } from "@/components/landing/navbar";
+import { Services } from "@/components/landing/services";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const { isAuthenticated } = getKindeServerSession()
-  const isAuthed = await isAuthenticated();
-  if (isAuthed) {
-    redirect("/dashboard");
-  }
+    const { isAuthenticated } = getKindeServerSession();
+    const isAuthed = await isAuthenticated();
+    if (isAuthed) {
+        redirect("/dashboard");
+    }
 
-  return (
-    <main>
-      <h1 className="text-3xl text-sky-800">Welcome to Genekriti</h1>
-      <div>
-        <Button><RegisterLink>Sign up</RegisterLink></Button>
-        <Button><LoginLink>Login</LoginLink></Button>
-      </div>
-    </main>
-  );
+    return (
+        <main className="flex min-h-screen w-full flex-col items-center justify-between overflow-hidden bg-[#faf0e6]">
+            <Navbar />
+            <Hero />
+            <About />
+            <Services />
+            <Impact />
+            <Footer />
+        </main>
+    );
 }
