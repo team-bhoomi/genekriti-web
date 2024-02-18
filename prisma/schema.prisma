@@ -274,7 +274,7 @@ model Purchases {
 model Conversations {
   id String @id @unique @default(cuid())
   user_id String
-  title String
+  title String?
   resource_url String
   prompt String
   ai_response String

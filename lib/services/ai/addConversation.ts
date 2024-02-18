@@ -5,8 +5,8 @@ export const addConversation = async ({
   ai_response,
   categories,
   prompt,
-  resource_url,
   title,
+  resource_url,
   user_id,
 }: Pick<
   Conversations,
@@ -22,8 +22,8 @@ export const addConversation = async ({
       data: {
         ai_response,
         user_id,
-        title,
         resource_url,
+        title,
         prompt,
         categories,
       },

@@ -11,10 +11,14 @@ import {
     DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Label } from "../ui/label";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { addConversationAction } from "@/lib/actions/ai/addConversationAction";
 
-export const AIPrompt = () => {
+export const AIPrompt = ({ user_id }: { user_id: string }) => {
     const [prodCat, setProdCat] = useState<string[]>([]);
+    const [AIResponse, setAIResponse] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [res, setRes] = useState("");
     const handleTags = (tag: string) => {
         var usedTags = [...prodCat];
         if (prodCat.includes(tag)) {
@@ -24,11 +28,29 @@ export const AIPrompt = () => {
         }
         setProdCat(usedTags);
     };
+    const [prompt, setPrompt] = useState("");
+
+    const hanldeAIResponse = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        const formData = new FormData();
+        formData.append("user_id", user_id);
+        formData.append("categories", JSON.stringify(prodCat))
+        formData.append("prompt", prompt);
+
+        const res = await addConversationAction(formData);
+        console.log(res);
+        setRes(res?.ai_response!);
+        setLoading(false);
+    }
     return (
-        <div className="flex gap-10">
-            <div className="w-full h-auto flex flex-col gap-3">
+        <div className="flex justify-between items-start gap-10">
+            <form onSubmit={(e) => {
+                hanldeAIResponse(e);
+            }} className="w-full h-auto flex flex-col gap-3">
                 <div className="w-full h-52 bg-blue-300 rounded-xl"></div>
                 <textarea
+                    onChange={e => { setPrompt(e.target.value) }}
                     className="w-full resize-none line-clamp-2 p-3 rounded-xl"
                     placeholder="Type your prompt here..."
                 ></textarea>
@@ -71,17 +93,15 @@ export const AIPrompt = () => {
                     </div>
                 </div>
                 <Button className="w-fit mt-5">Generate AI Response</Button>
-            </div>
-            <div className="w-full flex flex-col gap-3">
+            </form>
+            {<div className="w-full flex flex-col gap-3">
                 <div className="text-2xl font-semibold">AI Response :</div>
-                <div className="w-full h-[350px] p-4 bg-primary/20 outline-dashed outline-2 outline-offset-2 outline-black rounded-xl border-2 border-black">
-                    this is ai response Lorem, ipsum dolor sit amet consectetur
-                    adipisicing elit. Aspernatur recusandae officiis illo
-                    accusantium laboriosam asperiores! Eos iusto suscipit
-                    expedita voluptas facilis numquam ullam non reiciendis et
-                    accusantium officia, distinctio laboriosam?
+                <div className="prose w-full min-h-[350px] p-4 bg-primary/20 outline-dashed outline-2 outline-offset-2 outline-black rounded-xl border-2 border-black">
+                    {/* <pre>{JSON.stringify(res, null, 2)}</pre> */}
+                    {res}
                 </div>
-            </div>
+            </div>}
+            <div>{loading ? "I am loading" : "I am done loading "}</div>
         </div>
     );
 };
