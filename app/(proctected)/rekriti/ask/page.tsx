@@ -12,18 +12,14 @@ export default async function Page() {
             </div>
             <div className="flex flex-col gap-14 pt-4 px-4 pb-10">
                 <AIPrompt user_id={user?.id!} />
-                <div className="flex flex-col gap-3">
+                {/* <div className="flex flex-col gap-3">
                     <div className="text-2xl font-semibold">
                         Suggested Videos :
                     </div>
 
                     <div className="flex flex-wrap gap-10">
-                        {/* <VideoCard />
-                        <VideoCard />
-                        <VideoCard />
-                        <VideoCard /> */}
                     </div>
-                </div>
+                </div> */}
             </div>
         </main>
     );
