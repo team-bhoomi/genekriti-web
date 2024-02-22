@@ -16,6 +16,13 @@ export const Footer = () => {
                     <div className="text-lg font-medium">
                         a catalyst for positive change
                     </div>
+                    <Link
+                        target="_blank"
+                        href={"https://github.com/team-bhoomi/genekriti-web"}
+                        className="flex flex-col items-center font-medium mt-2"
+                    >
+                        GitHub Repo
+                    </Link>
                 </div>
                 <div className="w-full flex items-center justify-center">
                     <div className="flex flex-col gap-1">
