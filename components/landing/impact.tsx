@@ -1,12 +1,20 @@
+"use client";
+import { AttentionSeeker } from "react-awesome-reveal";
+
 export const Impact = () => {
     return (
         <section
             id="impact"
             className="w-full min-h-screen flex flex-col p-10 pt-32 gap-10 relative"
         >
-            <div className="text-8xl font-bold mt-[-60px] w-full text-center text-[#cb4154] about--heading">
+            <AttentionSeeker
+                damping={0.1}
+                effect="bounce"
+                triggerOnce
+                className="text-8xl font-bold mt-[-60px] w-full text-center text-[#cb4154] about--heading"
+            >
                 impact
-            </div>
+            </AttentionSeeker>
 
             <div className="flex flex-col gap-10 p-10">
                 <iframe
