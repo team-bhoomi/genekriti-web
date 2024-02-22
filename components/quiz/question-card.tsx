@@ -139,9 +139,9 @@ export const QuestionCard = ({ question, currentQuestionNumber }: { question: an
                             }
                             )
                         }} /> : <QuestionOption is_selected={false} selected={isSelected}
-                            opt={question.opt_1} i={4}
+                            opt={question.opt_4} i={4}
                             onClick={() => {
-                                setSelectedAnswer(question.opt_1);
+                                setSelectedAnswer(question.opt_4);
                                 setIsSelected({
                                     opt_1: false,
                                     opt_2: false,
