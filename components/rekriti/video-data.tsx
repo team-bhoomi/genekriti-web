@@ -18,7 +18,7 @@ export const VideoData = async ({ video }: { video: any }) => {
             <div className="*:pl-2">
                 <div className="flex items-center justify-between">
                     <div className="pb-1 font-semibold text-muted-foreground">
-                        {video.view_count} views · {video.like_count} likes · {video.comment_count} comments
+                        {video.like_count} likes · {video.comment_count} comments
                     </div>
                     <form action={likeVideoAction}>
                         {/* <input
