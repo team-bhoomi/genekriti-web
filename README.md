@@ -20,7 +20,7 @@ Genekriti is a platform where we the people can contribute to our environment an
 
 1. [Anushree Jaiswal](https://github.com/coderKrysio/) - Team Lead, Frontend developer
 2. [Mahendra Dani](https://github.com/MahendraDani) - Backend developer
-3. [Shreya Tripathi]() - Machine Learning
+3. [Shreya Tripathi](https://github.com/ShreyaaTripathi) - Machine Learning
 4. [N Kushal Rao](https://github.com/xanterkushal) - Machine Learning
 
 ## Entitiy Relationship Diagram
