@@ -21,11 +21,7 @@ export const getAllCommentsOfVideo = async ({
         video_id,
       },
       include: {
-        video: {
-          include: {
-            user: true,
-          },
-        },
+        user: true,
       },
     });
     return {

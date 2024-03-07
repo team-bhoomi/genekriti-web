@@ -35,6 +35,7 @@ model User{
   seller Products[]
   buyer Purchases[]
   conversations Conversations[]
+  video_comments Video_comments[]
 }
 model Organization{
   org_id String @id 
@@ -165,6 +166,7 @@ model Video_comments{
   comment String
   commented_at DateTime @default(now())
   video Videos @relation(fields: [video_id],references: [video_id],onDelete: Cascade)
+  user User @relation(fields: [user_id],references: [id], onDelete: Cascade)
 }
 
 model Video_views{

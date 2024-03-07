@@ -10,6 +10,7 @@ export const CommentSection = async ({ video }: { video: any }) => {
     const { data: comments } = await getAllCommentsOfVideo({
         video_id: video.video_id
     })
+
     return (
         <div className="flex flex-col gap-3">
             <form action={createCommentAction} className="flex items-center gap-2">
@@ -32,12 +33,12 @@ export const CommentSection = async ({ video }: { video: any }) => {
             {comments.map((comment: any, i: number) =>
             (
                 <div className="flex items-center gap-2" key={i}>
-                    <div className="w-9 h-9 rounded-full bg-red-500 overflow-hidden flex items-center">
-                        <img src={comment.video.user.profile_image} alt="" />
+                    <div className="w-9 h-9 rounded-full overflow-hidden flex items-center">
+                        {comment.user.profile_image ? <img src={comment.user.profile_image} alt="user profile" /> :<img src={"/images/proflie_image.jpeg"} alt="user proflie"/>}
                     </div>
                     <div className="flex flex-col">
                         <span className="text-sm text-muted-foreground font-semibold">
-                            {`${comment.video.user.first_name} ${comment.video.user.last_name}`}
+                            {`${comment.user.first_name} ${comment.user.last_name}`}
                         </span>
                         <span>{comment.comment}</span>
                     </div>
